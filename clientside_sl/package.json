@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "antd": "^5.13.3",
     "axios": "^1.6.5",
-    "chart.js": "^4.4.1",
     "js-cookie": "^3.0.5",
+    "lucide-react": "^0.315.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-confirm-alert": "^3.0.6",
@@ -20,9 +22,11 @@
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.0.1",
     "react-js-pagination": "^3.0.3",
+    "react-paginate": "^8.2.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.21.3",
     "react-scroll": "^1.9.0",
+    "recharts": "^2.11.0",
     "recoil": "^0.7.7"
   },
   "devDependencies": {

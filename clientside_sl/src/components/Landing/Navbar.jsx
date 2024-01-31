@@ -18,15 +18,10 @@ const Navbar = () => {
     setMenu(false);
   };
 
-  const handleLoginClick = () => {
-    navigate('/login');
-    closeMenu();
+  const handleLogin = () => {
+    navigate("/login");
   };
 
-  const handleRegisterClick = () => {
-    navigate('/register');
-    closeMenu();
-  };
 
   return (
     <div className="top-0 fixed w-full z-10">
@@ -164,17 +159,7 @@ const Navbar = () => {
             Kontak
           </Link>
 
-          <div className="hidden lg:flex">
-      <Link to="/login" className="px-6 py-1 border-2 border-black bg-[#A7D397] hover:text-[#ffffff] transition-all rounded-full" onClick={closeMenu}>
-        Login
-      </Link>
-      <Link to="/register" className="px-6 py-1 border-2 border-black bg-[#A7D397] hover:text-[#ffffff] transition-all rounded-full" onClick={closeMenu}>
-        Register
-      </Link>
-      {/* Use the Button component if needed */}
-      {/* <Button title="Login" onClick={closeMenu} />
-      <Button title="Register" onClick={closeMenu} /> */}
-    </div>
+          <Button title="Login" onClick={handleLogin} />
 
         </div>
       </div>

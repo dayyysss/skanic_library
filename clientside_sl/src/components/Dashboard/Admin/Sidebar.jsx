@@ -1,39 +1,67 @@
-import { useState } from 'react'
-import reactLogo from '../../../assets/react.svg'
-import viteLogo from '../../../../public/vite.svg'
-import 'react-icons/fa'
-import { MENU_ITEMS } from '../../Menu';
-import Submenu from '../../Submenu';
-function App() {
-  const [toggle, setToggle] = useState(false)
+import React from 'react'
+import { FaTachometerAlt, FaRegSun, FaWrench, FaStickyNote, FaRegChartBar, FaRegCalendarAlt, FaChevronRight, FaChevronLeft, FaBook, FaUser} from "react-icons/fa"
 
-  const clickHamberg =()=>{
-    setToggle(!toggle)
-  }
-
-  return (
-    <div className={`${toggle?'w-[67px]':'w-[305px]'}  overflow-y-hidden  transition-all duration-1000 bg-slate-950 h-screen rounded-r-md text-white`}>
-      <i className="bi bi-list text-[35px] w-[35px] h-[35px] p-3 cursor-pointer hover: rotate-180" onClick={clickHamberg} ></i>
-      <div className='p-2 flex flex-col gap-3 h-[93vh]   overflow-y-auto'>
-        {MENU_ITEMS?.map((item,index)=>{
-          return (
-            <>
-            {!item?.children?<div className=' flex p-1  items-center gap-5 hover:bg-red-600 rounded-lg cursor-pointer '>
-            <div> <i className={` ${!toggle?'':''}  text-xl ml-2 ${item.icon}`}></i></div>
-            {<div className={` font-mono ${toggle?' duration-1000 hidden ':'visble'} text-[20px] truncate  `}>{item.name}</div>}
-            </div>:<div className=' '><Submenu menu={item} toggle={toggle} /></div>  }
-            </>
-          )
-        })}
-        {/* <div className=' flex gap-5 mt-auto cursor-pointer  '>
-            <div> <i className={` ${!toggle?'':''}  text-xl ml-2 bi bi-door-open-fill`}></i></div>
-            <div className={` font-mono ${toggle?' duration-1000 hidden ':'visble'} text-[20px] truncate  `}>Log Off</div>
-      </div> */}
-      </div>
-   
-    </div>
-
-  )
+const Sidebar = () => {
+    return (
+        <div className='bg-[#4E73DF] px-[25px] h-screen'>
+            <div className='px-[15px] py-[30px] flex items-center justify-center border-b-[1px] border-[#EDEDED]/[0.3]'>
+                <h1 className='text-white text-[20px] leading-[24px] font-extrabold cursor-pointer'>Skanic Library</h1>
+            </div>
+            <div className='flex items-center gap-[15px] py-[20px] border-b-[1px] border-[#EDEDED]/[0.3] cursor-pointer'>
+                <FaTachometerAlt color='white' />
+                <p className='text-[14px] leading-[20px] font-bold text-white'>Dashboard</p>
+            </div>
+            <div className='pt-[15px] border-b-[1px] border-[#EDEDED]/[0.3]'>
+                <p className='text-[10px] font-extrabold leading-[16px] text-white/[0.4]'> DATA MASTER </p>
+                <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+                    <div className='flex items-center gap-[10px]'>
+                        <FaRegSun color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Admin</p>
+                    </div>
+                    <FaChevronRight color='white' />
+                </div>
+                <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+                    <div className='flex items-center gap-[10px]'>
+                        <FaUser color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Anggota</p>
+                    </div>
+                    <FaChevronRight color='white' />
+                </div>
+                <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+                    <div className='flex items-center gap-[10px]'>
+                        <FaBook color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Buku</p>
+                    </div>
+                    <FaChevronRight color='white' />
+                </div>
+                <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+                    <div className='flex items-center gap-[10px]'>
+                        <FaWrench color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Kategori Buku</p>
+                    </div>
+                    <FaChevronRight color='white' />
+                </div>
+            </div>
+            <div className='pt-[15px] border-b-[1px] border-[#EDEDED]/[0.3]'>
+                <p className='text-[10px] font-extrabold leading-[16px] text-white/[0.4]'> DATA TRANSAKSI </p>
+                <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+                    <div className='flex items-center gap-[10px]'>
+                        <FaStickyNote color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Peminjaman Buku</p>
+                    </div>
+                    <FaChevronRight color='white' />
+                </div>
+                <div className='flex items-center gap-[10px] py-[15px]  cursor-pointer'>
+                    <FaRegChartBar color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Pengembalian Buku</p>
+                </div>
+                <div className='flex items-center gap-[10px] py-[15px] cursor-pointer'>
+                    <FaRegCalendarAlt color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Denda</p>
+                </div>
+            </div>
+            <div className='pt-[15px]'>
+                <div className='flex items-center justify-center'>
+                    <div className='h-[40px] w-[40px] bg-[#3C5EC1] rounded-full flex items-center justify-center cursor-pointer'>
+                        <FaChevronLeft color='white' />
+                    </div>
+                </div>
+            </div>
+            </div>
+    )
 }
 
-export default App
+export default Sidebar
