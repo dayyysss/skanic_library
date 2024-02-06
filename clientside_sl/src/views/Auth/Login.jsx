@@ -21,17 +21,17 @@ const Login = ({ title }) => {
       });
 
       // Handle successful login
-    console.log(response.data);
+      console.log(response.data);
 
-    if (response.data.success) {
-      // Redirect ke halaman dashboard admin
-      window.location.href = '/dashboard-admin';
+      if (response.data.success) {
+        // Redirect ke halaman dashboard admin
+        window.location.href = "/dashboard-admin";
+      }
+    } catch (error) {
+      // Handle login failure, e.g., show an error message
+      console.error(error.response.data.error);
     }
-  } catch (error) {
-    // Handle login failure, e.g., show an error message
-    console.error(error.response.data.error);
-  }
-};
+  };
 
   return (
     <div className="grid md:grid-cols-2 md:gap- place-items-center w-full min-h-screen">
@@ -47,7 +47,8 @@ const Login = ({ title }) => {
             <div className="w-full flex flex-col mt-4">
               <label
                 htmlFor="email"
-                className="mb-1 text-sm text-gray-400 font-semibold uppercase"
+                className="mb-1 text-sm text-green-400 font-semibold uppercase"
+                style={{ alignSelf: "flex-start", marginLeft: "2px" }} // Menambahkan gaya CSS untuk memindahkan label ke kiri atas input
               >
                 Email
               </label>
@@ -62,10 +63,12 @@ const Login = ({ title }) => {
                 required
               />
             </div>
+
             <div className="w-full flex flex-col mt-4">
               <label
                 htmlFor="password"
-                className="mb-1 text-sm text-gray-400 font-semibold uppercase"
+                className="mb-1 text-sm text-green-400 font-semibold uppercase"
+                style={{ alignSelf: "flex-start", marginLeft: "2px" }} // Menambahkan gaya CSS untuk memindahkan label ke kiri atas input
               >
                 Password
               </label>
@@ -89,7 +92,7 @@ const Login = ({ title }) => {
             </div>
           </form>
           <p className="text-sm text-center text-gray-500 mt-4">
-            Tidak punya akun?,{" "}
+            Tidak punya akun?{" "}
             <Link
               to="/register"
               className="text-green-500 hover:text-green-700"

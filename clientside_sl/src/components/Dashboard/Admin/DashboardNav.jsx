@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaSearch, FaEnvelope, FaRegBell } from "react-icons/fa"
 import profile from "../../../assets/user.svg"
 
-const Dashboardview = () => {
+const DashboardNav = () => {
     const [open, setOpen] = useState(false)
 
     const showProfile = () => {
@@ -51,4 +51,4 @@ const Dashboardview = () => {
     )
 }
 
-export default Dashboardview
+export default DashboardNav

@@ -92,7 +92,7 @@ const Navbar = () => {
           </nav>
 
           <div className=" hidden lg:flex">
-            <Button title="Login" />
+          <Button title="Login" onClick={handleLogin} />
           </div>
 
           <div className="md:hidden flex items-center">
@@ -158,9 +158,6 @@ const Navbar = () => {
           >
             Kontak
           </Link>
-
-          <Button title="Login" onClick={handleLogin} />
-
         </div>
       </div>
     </div>
