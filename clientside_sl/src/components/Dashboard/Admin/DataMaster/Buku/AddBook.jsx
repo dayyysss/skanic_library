@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-const AddPustakawan = () => {
+const AddBook = () => {
   const [ID, setID] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("M");
@@ -37,7 +37,7 @@ const AddPustakawan = () => {
   return (
     <div className='px-[25px] pt-[25px] bg-[#F8F9FC]'>
     <div className='flex items-center justify-between'>
-      <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer mb-6'>Tambah Data Pustakawan</h1>
+      <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer mb-6'>Tambah Data Buku</h1>
       </div>
 
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -173,4 +173,4 @@ const AddPustakawan = () => {
   );
 };
 
-export default AddPustakawan;
+export default AddBook;

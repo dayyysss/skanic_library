@@ -15,9 +15,9 @@ const SidebarAdmin = () => {
 
       {/* Dashboard Link */}
       <NavLink to="/dashboard-admin" className='flex items-center gap-[15px] py-[20px] border-b-[1px] border-[#EDEDED]/[0.3]' activeClassName="selected">
-  <FaTachometerAlt color='white' />
-  <p className='text-[14px] leading-[20px] font-bold text-white'>Dashboard</p>
-</NavLink>
+        <FaTachometerAlt color='white' />
+        <p className='text-[14px] leading-[20px] font-bold text-white'>Dashboard</p>
+      </NavLink>
 
       {/* Data Master Section */}
       <div className='pt-[15px] border-b-[1px] border-[#EDEDED]/[0.3]'>
@@ -26,11 +26,11 @@ const SidebarAdmin = () => {
 
         {/* Admin Link */}
         <NavLink to="/dashboard-admin/admin" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer' activeClassName="selected">
-  <div className='flex items-center gap-[10px]'>
-    <RiAdminFill color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Admin</p>
-  </div>
-  <FaChevronRight color='white' />
-</NavLink>
+          <div className='flex items-center gap-[10px]'>
+            <RiAdminFill color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Admin</p>
+          </div>
+          <FaChevronRight color='white' />
+        </NavLink>
 
         {/* Pustakawan Link */}
         <NavLink to="/dashboard-admin/pustakawan" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
@@ -38,7 +38,7 @@ const SidebarAdmin = () => {
             <FaUserTie color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Pustakawan</p>
           </div>
           <FaChevronRight color='white' />
-          </NavLink>
+        </NavLink>
 
         {/* Anggota Link */}
         <NavLink to="/dashboard-admin/anggota" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
@@ -49,20 +49,20 @@ const SidebarAdmin = () => {
         </NavLink>
 
         {/* Buku Link */}
-        <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+        <NavLink to="/dashboard-admin/buku" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
           <div className='flex items-center gap-[10px]'>
             <FaBook color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Buku</p>
           </div>
           <FaChevronRight color='white' />
-        </div>
+        </NavLink>
 
         {/* Kategori Buku Link */}
-        <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+        <NavLink to="/dashboard-admin/kategori" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
           <div className='flex items-center gap-[10px]'>
             <IoBookmarks color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Kategori</p>
           </div>
           <FaChevronRight color='white' />
-        </div>
+        </NavLink>
       </div>
 
       {/* Data Transaksi Section */}
@@ -71,23 +71,29 @@ const SidebarAdmin = () => {
         <p className='text-[10px] font-extrabold leading-[16px] text-white/[0.4]'> DATA TRANSAKSI </p>
 
         {/* Peminjaman Buku Link */}
-        <div className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+        <NavLink to="/dashboard-admin/peminjaman" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
           <div className='flex items-center gap-[10px]'>
             <FaStickyNote color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Peminjaman</p>
           </div>
           <FaChevronRight color='white' />
-        </div>
+        </NavLink>
 
         {/* Pengembalian Buku Link */}
-        <div className='flex items-center gap-[10px] py-[15px]  cursor-pointer'>
-          <FaRegChartBar color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Pengembalian</p>
-        </div>
+        <NavLink to="/dashboard-admin/pengembalian" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+          <div className='flex items-center gap-[10px]'>
+            <FaRegChartBar color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Pengembalian</p>
+          </div>
+          <FaChevronRight color='white' />
+        </NavLink>
 
         {/* Denda Link */}
-        <div className='flex items-center gap-[10px] py-[15px] cursor-pointer'>
-          <FaRegCalendarAlt color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Denda</p>
+        <NavLink to="/dashboard-admin/denda" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+          <div className='flex items-center gap-[10px]'>
+            <FaRegCalendarAlt color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Denda</p>
+          </div>
+          <FaChevronRight color='white' />
+        </NavLink>
         </div>
-      </div>
 
       {/* Sidebar Collapse Button */}
       <div className='pt-[15px]'>

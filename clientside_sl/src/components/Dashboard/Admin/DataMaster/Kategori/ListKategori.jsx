@@ -4,7 +4,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import DeleteModal from "../../DeleteModal/index";
 
-const PustakawanList = () => {
+const ListKategori = () => {
   const [members, setMembers] = useState([]);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
@@ -77,10 +77,10 @@ const PustakawanList = () => {
       )}
       <div className='px-[25px] pt-[25px] pb-[370px] bg-[#F8F9FC]'>
         <div className='flex items-center justify-between'>
-          <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer'>Data Pustakawan</h1>
+          <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer'>Data Kategori</h1>
 
-          <Link to="/dashboard-admin/pustakawan/add-pustakawan/*" className="bg-blue-500 h-[32px] rounded-[3px] text-white flex items-center justify-center px-[8px]">
-            Tambah Pustakawan
+          <Link to="/dashboard-admin/kategori/add-kategori/*" className="bg-blue-500 h-[32px] rounded-[3px] text-white flex items-center justify-center px-[8px]">
+            Tambah Kategori
           </Link>
         </div>
 
@@ -106,12 +106,7 @@ const PustakawanList = () => {
           <thead>
             <tr>
               <th className="px-4 py-2">No</th>
-              <th className="px-4 py-2">ID</th>
-              <th className="px-4 py-2">Nama</th>
-              <th className="px-4 py-2">Jenis Kelamin</th>
-              <th className="px-4 py-2">Alamat</th>
-              <th className="px-4 py-2">Email</th>
-              <th className="px-4 py-2">Telepon</th>
+              <th className="px-4 py-2">Kategori</th>
               <th className="px-4 py-2">Aksi</th>
             </tr>
           </thead>
@@ -161,4 +156,4 @@ const PustakawanList = () => {
   );
 };
 
-export default PustakawanList;
+export default ListKategori;
