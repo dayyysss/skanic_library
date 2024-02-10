@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
+import BookIcon from '@mui/icons-material/Book';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
@@ -20,50 +22,43 @@ function Sidebar() {
         <div className="sidebar">
             <div className="logo">
                 <Link to="/dashboard-pustakawan" style={{ textDecoration: 'none' }}>
-                    <h3 className="text_none">PustakawanDashboard</h3>
+                    <h3 className="text_none">SKANIC LIBRARY</h3>
                 </Link>
             </div>
 
             <div className="links">
                 <ul>
-                    <p className="spann">Main</p>
+                    <p className="spann menu1">Main</p>
                     <Link to="/dashboard-pustakawan" style={{ textDecoration: 'none' }}>
                         <li>
                             <DashboardIcon className="icon" /> Dashboard
                         </li>
                     </Link>
 
-                    <p className="spann">Data Master</p>
-                    <Link to="/users" style={{ textDecoration: 'none' }}>
+                    <p className="spann menu2">Data Master</p>
+                    <Link to="/dashboard-pustakawan/data-buku" style={{ textDecoration: 'none' }}>
                         <li>
-                            <PersonIcon className="icon" /> Kategori Buku
+                            <BookIcon className="icon" /> Data Buku
                         </li>
                     </Link>
 
-                    <Link to="/products" style={{ textDecoration: 'none' }}>
+                    <Link to="/dashboard-pustakawan/kategori-buku" style={{ textDecoration: 'none' }}>
                         <li>
-                            <TableChartIcon className="icon" /> Data Buku
+                            <CollectionsBookmarkIcon className="icon" /> Kategori Buku
                         </li>
                     </Link>
-                    <Link to="/orders" style={{ textDecoration: 'none' }}>
-                        <li>
-                            <CreditCardIcon className="icon" /> Orders
-                        </li>
-                    </Link>
-                    <li>
-                        <CreditCardIcon className="icon" /> Balance
-                    </li>
-                    <li>
-                        <BarChartIcon className="icon" /> Status
-                    </li>
 
-                    <p className="spann">Data Transaksi</p>
-                    <li>
-                        <AccountCircleIcon className="icon" /> Peminjaman Buku
-                    </li>
-                    <li>
-                        <SettingsRoundedIcon className="icon" /> Pengembalian Buku
-                    </li>
+                    <p className="spann menu3">Data Transaksi</p>
+                    <Link to="/dashboard-pustakawan/peminjaman-buku" style={{ textDecoration: 'none' }}>
+                        <li>
+                            <BookmarkAddIcon className="icon" /> Peminjaman Buku
+                        </li>
+                    </Link>
+                    <Link to="/dashboard-pustakawan/pengembalian-buku" style={{ textDecoration: 'none' }}>
+                        <li>
+                            <BookmarkRemoveIcon className="icon" /> Pengembalian Buku
+                        </li>
+                    </Link>
                     <li>
                         <LogoutIcon className="icon" /> Logout
                     </li>

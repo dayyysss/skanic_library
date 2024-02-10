@@ -14,7 +14,7 @@ function ItemLists({ type }) {
     switch (type) {
         case 'user':
             data = {
-                title: 'USERS',
+                title: 'Jumlah Pustakawan',
                 isMoney: false,
                 count: 232,
                 icon: (
@@ -26,13 +26,13 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'See all users',
+                link: 'Lihat semua pustakawan',
                 linkto: '/users',
             };
             break;
         case 'orders':
             data = {
-                title: 'ORDERS',
+                title: 'Jumlah Anggota',
                 isMoney: false,
                 count: 34,
 
@@ -45,14 +45,14 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'View all orders',
+                link: 'Lihat semua anggota',
                 linkto: '/orders',
             };
             break;
         case 'products':
             data = {
-                title: 'PRODUCTS',
-                isMoney: true,
+                title: 'Jumlah Buku',
+                isMoney: false,
                 count: 107,
                 icon: (
                     <AttachMoneyOutlinedIcon
@@ -63,15 +63,15 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'See all products',
+                link: 'Lihat semua buku',
                 linkto: '/products',
             };
             break;
         case 'balance':
             data = {
-                title: 'BALANCE',
+                title: 'Jumlah Peminjaman',
                 count: 444,
-                isMoney: true,
+                isMoney: false,
                 icon: (
                     <PaidOutlinedIcon
                         style={{
@@ -81,7 +81,7 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'See all details',
+                link: 'Lihat semua peminjaman',
                 linkto: '/',
             };
             break;
