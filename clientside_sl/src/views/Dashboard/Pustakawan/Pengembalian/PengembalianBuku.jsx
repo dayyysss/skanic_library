@@ -12,7 +12,7 @@ import blog3 from '../../../../assets/ImagesNew/blog3.jpg';
 import blog4 from '../../../../assets/ImagesNew/blog4.jpg';
 import blog5 from '../../../../assets/ImagesNew/book3.jpg';
 import blog6 from '../../../../assets/ImagesNew/book5.jpg';
-import './blogs.scss';
+import './Pengembalian.scss';
 
 const userData = [
     {
@@ -59,7 +59,7 @@ const userData = [
     },
 ];
 
-function Blogs({ type }) {
+function PengembalianBuku({ type }) {
     const [data, setData] = useState(userData);
 
     const handleDlt = (id) => {
@@ -118,14 +118,6 @@ function Blogs({ type }) {
 
                 <div className="blog_page_table">
                     <div className="btnn">
-                        <Link
-                            to={`/${
-                                type === 'blog' ? 'blogs' : 'user' ? 'users' : 'products'
-                            }/addnew`}
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <button type="button">Add New {type}</button>
-                        </Link>
                     </div>
                     <DataGrid
                         className="data_grid"
@@ -141,4 +133,4 @@ function Blogs({ type }) {
     );
 }
 
-export default Blogs;
+export default PengembalianBuku;

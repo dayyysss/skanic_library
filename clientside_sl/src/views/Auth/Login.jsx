@@ -10,28 +10,44 @@ const Login = ({ title }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       // Log the request payload before making the API call
       console.log("Request Payload:", { email, password });
-
+  
       const response = await Api.post("/api/login", {
         email,
         password,
       });
-
+  
       // Handle successful login
       console.log(response.data);
-
+  
       if (response.data.success) {
-        // Redirect ke halaman dashboard admin
-        window.location.href = "/dashboard-admin";
+        // Redirect ke halaman dashboard sesuai peran
+        const role = response.data.role;
+        switch (role) {
+          case "admin":
+            window.location.href = "/dashboard-admin";
+            break;
+          case "pustakawan":
+            window.location.href = "/dashboard-pustakawan";
+            break;
+          case "anggota":
+            window.location.href = "/dashboard-anggota";
+            break;
+          default:
+            // Redirect ke halaman default jika peran tidak dikenali
+            window.location.href = "/login";
+            break;
+        }
       }
     } catch (error) {
       // Handle login failure, e.g., show an error message
       console.error(error.response.data.error);
     }
   };
+  
 
   return (
     <div className="grid md:grid-cols-2 md:gap- place-items-center w-full min-h-screen">
@@ -87,7 +103,7 @@ const Login = ({ title }) => {
               <input
                 type="submit"
                 value="Login"
-                className="w-full bg-green-500 px-2 py-3 mt-4 text-white font-semibold tracking-widest uppercase rounded-lg hover:bg-green-300"
+                className="w-full bg-green-500 px-2 py-3 mt-4 text-white font-semibold tracking-widest uppercase rounded-lg hover:bg-green-300 cursor-pointer"
               />
             </div>
           </form>

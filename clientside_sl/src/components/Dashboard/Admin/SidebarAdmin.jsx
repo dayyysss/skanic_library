@@ -1,13 +1,18 @@
-// Sidebar.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { FaTachometerAlt, FaUserTie, FaStickyNote, FaRegChartBar, FaRegCalendarAlt, FaChevronRight, FaChevronLeft, FaBook, FaUser } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import { IoBookmarks } from "react-icons/io5";
 import { NavLink, Link } from 'react-router-dom';
 
 const SidebarAdmin = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State untuk melacak apakah sidebar terbuka atau tertutup
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen); // Mengubah status sidebar saat diklik
+  };
+
   return (
-    <div className='bg-[#4E73DF] px-[25px] h-screen'>
+    <div className={`bg-[#4E73DF] px-[25px] h-screen ${isSidebarOpen ? '' : 'w-[50px]'} transition-all`}>
       {/* Header */}
       <div className='px-[15px] py-[30px] flex items-center justify-center border-b-[1px] border-[#EDEDED]/[0.3]'>
         <h1 className='text-white text-[20px] leading-[24px] font-extrabold cursor-pointer'>Skanic Library</h1>
@@ -98,7 +103,7 @@ const SidebarAdmin = () => {
       {/* Sidebar Collapse Button */}
       <div className='pt-[15px]'>
         <div className='flex items-center justify-center'>
-          <div className='h-[40px] w-[40px] bg-[#3C5EC1] rounded-full flex items-center justify-center cursor-pointer'>
+          <div className='h-[40px] w-[40px] bg-[#3C5EC1] rounded-full flex items-center justify-center cursor-pointer' onClick={toggleSidebar}>
             <FaChevronLeft color='white' />
           </div>
         </div>
@@ -107,4 +112,4 @@ const SidebarAdmin = () => {
   );
 }
 
-export default SidebarAdmin
+export default SidebarAdmin;

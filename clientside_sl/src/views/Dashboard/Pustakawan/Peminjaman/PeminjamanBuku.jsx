@@ -6,9 +6,9 @@ import DataTable from '../../../../components/Dashboard/Pustakawan/DataTable/Dat
 import Navbar from '../../../../components/Dashboard/Pustakawan/Navbar/Navbar';
 import Sidebar from '../../../../components/Dashboard/Pustakawan/Sidebar/Sidebar';
 import TableList from '../../../../components/Dashboard/Pustakawan/TableList/TableList';
-import './userlists.scss';
+import './Peminjaman.scss';
 
-function Lists({ type }) {
+function PeminjamanBuku({ type }) {
     //
     return (
         <div className="list_page">
@@ -22,14 +22,6 @@ function Lists({ type }) {
                 {/* mui data table */}
                 <div className="data_table">
                     <div className="btnn">
-                        <Link
-                            to={`/${
-                                type === 'product' ? 'products' : 'user' ? 'users' : 'blogs'
-                            }/addnew`}
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <button type="button">Add New {type}</button>
-                        </Link>
                     </div>
 
                     {type === 'user' ? <DataTable /> : <TableList />}
@@ -39,4 +31,4 @@ function Lists({ type }) {
     );
 }
 
-export default Lists;
+export default PeminjamanBuku;

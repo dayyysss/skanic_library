@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './views/Landing/Landing'
 import Login from './views/Auth/Login'
 import Register from './views/Auth/Register'
+import NotFound from './views/NotFound'
 
 // Dashboard Admin
 import HomeAdmin from './components/Dashboard/Admin/Home/HomeAdmin';
@@ -29,13 +30,21 @@ import TransDenda from './views/Dashboard/Admin/DataTransaksi/Denda'
 
 // Dashboard Pustakawan
 import { ColorContext } from './ColorContext/darkContext';
-import Home from './components/Dashboard/Pustakawan/Home/Home';
+import HomePustakawan from './components/Dashboard/Pustakawan/Home/Home';
 import ListBooks from './views/Dashboard/Pustakawan/DataBuku/BooksList'
+import TambahBukuP from './views/Dashboard/Pustakawan/DataBuku/BookAdd'
 import ListKategori from './views/Dashboard/Pustakawan/KategoriBuku/ListKategori'
+// import TambahKategoriP from './views/Dashboard/Pustakawan/KategoriBuku/KategoriAdd'
+import PeminjamanBuku from './views/Dashboard/Pustakawan/Peminjaman/PeminjamanBuku'
+import PengembalianBuku from './views/Dashboard/Pustakawan/Pengembalian/PengembalianBuku'
 import './app.scss'
 
 // Dashboard Anggota
-import DashboardAnggota from './views/Dashboard/Anggota'
+import HomeAnggota from './components/Dashboard/Anggota/Home/HomeAnggota'
+import PeminjamanBukuA from './views/Dashboard/Anggota/Peminjaman/PeminjamanA'
+import PengembalianBukuA from './views/Dashboard/Anggota/Pengembalian/PengembalianA'
+import RiwayatBukuA from './views/Dashboard/Anggota/Riwayat/RiwayatA'
+import DendaA from './views/Dashboard/Anggota/Denda/DendaA'
 
 function App() {
     // color state management using react context
@@ -78,16 +87,29 @@ function App() {
 
                     {/* Start Dashboard Pustakawan */}
                     <Route path="/dashboard-pustakawan">
-                        <Route index element={<Home />} />
+                        <Route index element={<HomePustakawan />} />
                         {/* nested routes */}
                         <Route path="data-buku/*" element={<ListBooks type="buku" />} />
-                        <Route path="kategori-buku/*" element={<ListKategori type="kategori" />} />
+                        <Route path="/dashboard-pustakawan/data-buku/tambah-buku/*" element={<TambahBukuP type="buku" />} />
 
+                        <Route path="kategori-buku/*" element={<ListKategori type="kategori" />} />
+                        <Route path="/dashboard-pustakawan/kategori-buku/tambah-kategori/*" element={<ListBooks type="buku" />} />
+
+                        <Route path="peminjaman-buku/*" element={<PeminjamanBuku type="peminjaman" />} />
+                        <Route path="pengembalian-buku/*" element={<PengembalianBuku type="pengembalian" />} />
                     </Route>
                     {/* End Dashboard Pustakawan */}
 
                     {/* Start Dashboard Aggota */}
-                    <Route path="/dashboard-anggota" element={<DashboardAnggota title="DashboardAdmin" />} />
+                    <Route path="/dashboard-anggota">
+                        <Route index element={<HomeAnggota />} />
+                        {/* nested routes */}
+                        <Route path="peminjaman-buku/*" element={<PeminjamanBukuA type="buku" />} />
+                        <Route path="pengembalian-buku/*" element={<PengembalianBukuA type="kategori" />} />
+                        <Route path="riwayat-buku/*" element={<RiwayatBukuA type="peminjaman" />} />
+                        <Route path="denda/*" element={<DendaA type="pengembalian" />} />
+                    <Route path="*" element={<NotFound />} />
+                    </Route>
                     {/* End Dashboard Anggota */}
 
                 </Routes>

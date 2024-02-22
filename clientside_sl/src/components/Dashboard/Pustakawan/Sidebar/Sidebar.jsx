@@ -41,12 +41,13 @@ function Sidebar() {
                             <BookIcon className="icon" /> Data Buku
                         </li>
                     </Link>
+                    
 
-                    <Link to="/dashboard-pustakawan/kategori-buku" style={{ textDecoration: 'none' }}>
+                    {/* <Link to="/dashboard-pustakawan/kategori-buku" style={{ textDecoration: 'none' }}>
                         <li>
                             <CollectionsBookmarkIcon className="icon" /> Kategori Buku
                         </li>
-                    </Link>
+                    </Link> */}
 
                     <p className="spann menu3">Data Transaksi</p>
                     <Link to="/dashboard-pustakawan/peminjaman-buku" style={{ textDecoration: 'none' }}>

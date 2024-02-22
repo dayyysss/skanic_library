@@ -63,13 +63,13 @@ function Chart({ height, title }) {
         <div className="chart_sec">
             <div>
                 <div className="title">
-                    <p>{title} (Last 1 year)</p>
+                    <p>{title} (1 Week)</p>
                 </div>
 
                 <div style={{ width: '100%', height: 300 }}>
                     {/* <ResponsiveContainer> */}
                     <AreaChart
-                        width={850}
+                        width={930}
                         height={height}
                         data={data}
                         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}

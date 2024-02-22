@@ -106,13 +106,16 @@ const BookList = () => {
           <thead>
             <tr>
               <th className="px-4 py-2">No</th>
-              <th className="px-4 py-2">ID</th>
-              <th className="px-4 py-2">Buku</th>
-              <th className="px-4 py-2">Jenis Kelamin</th>
-              <th className="px-4 py-2">Alamat</th>
-              <th className="px-4 py-2">Email</th>
-              <th className="px-4 py-2">Telepon</th>
-              <th className="px-4 py-2">Aksi</th>
+              <th className="px-4 py-2">Title</th>
+              <th className="px-4 py-2">Synopsis</th>
+              <th className="px-4 py-2">ISBN</th>
+              <th className="px-4 py-2">Writer</th>
+              <th className="px-4 py-2">Page Amount</th>
+              <th className="px-4 py-2">Stock Amount</th>
+              <th className="px-4 py-2">Published</th>
+              <th className="px-4 py-2">Category</th>
+              <th className="px-4 py-2">Image</th>
+              <th className="px-4 py-2">Status</th>
             </tr>
           </thead>
           <tbody>

@@ -19,7 +19,7 @@ function ProgressBar() {
     ];
 
     return (
-        <div className="progress_bar">
+        <div className="progress_bar mx-4">
             <div className="top">
                 <p>Total Revenue</p>
                 <MoreVertOutlinedIcon />

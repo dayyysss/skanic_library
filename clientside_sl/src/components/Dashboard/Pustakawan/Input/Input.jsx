@@ -1,11 +1,9 @@
-/* eslint-disable react/no-unknown-property */
-/* eslint-disable react/jsx-props-no-spreading */
+// input.jsx
 import React, { useState } from 'react';
 import './input.scss';
 
-function Input(inpDetails) {
+function Input({ label, onChange, type, errorMsg, placeholder, ...detail }) {
     const [focus, setFocus] = useState(false);
-    const { lable, onChange, type, errorMsg, ...detail } = inpDetails;
 
     const handleBlur = () => {
         setFocus(true);
@@ -13,7 +11,7 @@ function Input(inpDetails) {
 
     return (
         <div className="input_component">
-            <lable>{lable}</lable>
+            <label>{label}</label>
             <input
                 className="input_field"
                 {...detail}
@@ -22,6 +20,7 @@ function Input(inpDetails) {
                 onFocus={() => detail.name === 'password' && setFocus(true)}
                 focused={focus.toString()}
                 type={type}
+                placeholder={placeholder}
             />
 
             <span>{errorMsg}</span>

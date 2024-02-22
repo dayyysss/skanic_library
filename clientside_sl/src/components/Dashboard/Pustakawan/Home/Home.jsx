@@ -29,7 +29,7 @@ function Home() {
 
                 <div className="chart_sec">
                     <ProgressBar />
-                    <Chart height={450} title="Revenue" />
+                    <Chart height={450} title="Grafik Peminjaman" />
                 </div>
 
                 <div className="table">

@@ -106,7 +106,7 @@ const AdminList = () => {
         <table className="w-full table-auto mt-4 border border-slate-500 border-collapse bg-white shadow-md">
           <thead>
             <tr>
-              <th className="px-4 py-2">No</th>
+              <th className="px-4 py-2">ID</th>
               <th className="px-4 py-2">ID</th>
               <th className="px-4 py-2">Nama</th>
               <th className="px-4 py-2">Jenis Kelamin</th>
