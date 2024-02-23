@@ -8,6 +8,14 @@ import { MdOutlineLogout } from "react-icons/md";
 
 function Sidebar() {
   const { pathname } = useLocation();
+
+  const handleLogout = () => {
+    // Hapus token dari local storage
+    localStorage.removeItem("token");
+    // Arahkan pengguna kembali ke halaman login
+    window.location.href = "/";
+  };
+
   return (
     <div className="bg-neutral-50 flex flex-col justify-between text-neutral-800 gap-4 w-14 md:w-72 p-4">
       <div className="toppart flex-1">
@@ -52,11 +60,13 @@ function Sidebar() {
             );
           })}
         </nav>
-        <div className="flex items-center gap-3 p-1 hover:bg-neutral-100 text-neutral-500 hover:text-red-500 font-semibold">
+        <div
+          className="flex items-center gap-3 p-1 hover:bg-neutral-100 text-neutral-500 hover:text-red-500 font-semibold"
+          onClick={handleLogout}
+          style={{ cursor: "pointer" }}
+        >
           <MdOutlineLogout fontSize={26} />
-          <button className="border-none focus:outline-none focus:border-none text-sm hidden md:inline">
-            Log Out
-          </button>
+          <span className="text-sm hidden md:inline">Log Out</span>
         </div>
       </div>
     </div>

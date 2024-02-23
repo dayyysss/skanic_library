@@ -12,9 +12,9 @@ function ItemLists({ type }) {
 
     // Dynamicaly change the ui content
     switch (type) {
-        case 'user':
+        case 'data-buku':
             data = {
-                title: 'Jumlah Pustakawan',
+                title: 'Data Buku',
                 isMoney: false,
                 count: 232,
                 icon: (
@@ -26,13 +26,13 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'Lihat semua pustakawan',
-                linkto: '/users',
+                link: 'Lihat semua data buku',
+                linkto: '/dashboard-pustakawan/data-buku',
             };
             break;
-        case 'orders':
+        case 'peminjaman-buku':
             data = {
-                title: 'Jumlah Anggota',
+                title: 'Peminjaman Buku',
                 isMoney: false,
                 count: 34,
 
@@ -45,13 +45,13 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'Lihat semua anggota',
-                linkto: '/orders',
+                link: 'Lihat semua peminjaman',
+                linkto: '/dashboard-pustakawan/peminjaman-buku',
             };
             break;
-        case 'products':
+        case 'pengembalian-buku':
             data = {
-                title: 'Jumlah Buku',
+                title: 'Pengembalian Buku',
                 isMoney: false,
                 count: 107,
                 icon: (
@@ -63,8 +63,8 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'Lihat semua buku',
-                linkto: '/products',
+                link: 'Lihat semua pengembalian',
+                linkto: '/dashboard-pustakawan/pengembalian-buku',
             };
             break;
         case 'balance':

@@ -3,7 +3,7 @@ import img from "../../assets/contact.svg";
 import Heading from "../../layouts/Landing/Heading";
 import Button from "../../layouts/Landing/Button";
 
-const Contact = () => {
+const Kontak = () => {
   return (
     <div className=" min-h-screen flex flex-col items-center justify-center md:mx-32 mx-5 mt-10">
       <Heading title1="Hubungi" title2="Kami" />
@@ -13,7 +13,7 @@ const Contact = () => {
           <div className=" flex flex-col">
             <label htmlFor="userName">Nama Anda</label>
             <input
-              className=" py-3 px-2 rounded-lg hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all"
+              className=" py-3 px-2 rounded-lg hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all bg-[#F5F7F8]"
               type="text"
               name="userName"
               id="userName"
@@ -23,7 +23,7 @@ const Contact = () => {
           <div className=" flex flex-col">
             <label htmlFor="userEmail">Email Anda</label>
             <input
-              className=" py-3 px-2 rounded-lg hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all"
+              className=" py-3 px-2 rounded-lg hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all bg-[#F5F7F8]"
               type="email"
               name="userEmail"
               id="userEmail"
@@ -33,7 +33,7 @@ const Contact = () => {
           <div className=" flex flex-col">
             <label htmlFor="userNumber">Nomor Anda</label>
             <input
-              className=" py-3 px-2 rounded-lg hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all"
+              className=" py-3 px-2 rounded-lg hover:shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] transition-all bg-[#F5F7F8]"
               type="text"
               name="userNumber"
               id="userNumber"
@@ -54,4 +54,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Kontak;

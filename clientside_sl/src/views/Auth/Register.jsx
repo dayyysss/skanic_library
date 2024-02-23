@@ -2,33 +2,37 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Ilustration from "../../assets/ilus-logdaf.svg";
 import Api from "../../api/index";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-hot-toast";
 
 const Register = ({ title }) => {
+  document.title = "Register - Skanic Library";
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setConfirmPassword] = useState("");
-  const [roles, setRoles] = useState("anggota"); // Set default role to "anggota"
+  const [roles, setRoles] = useState(3); // Default role ID for "Anggota"
+  const [isLoading, setIsLoading] = useState(false); // Loading state
+
+  const roleOptions = [
+    { label: "Pustakawan", value: 2 },
+    { label: "Anggota", value: 3 },
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set isLoading true saat mulai proses registrasi
 
     // Validasi password
     if (password !== password_confirmation) {
-      toast.error("Password and confirmation do not match");
+      toast.error("Password dan konfirmasi tidak sesuai!", {
+        position:"top-center"
+      });
+      setIsLoading(false); // Set isLoading false setelah validasi gagal
       return;
     }
 
     try {
-      console.log("Request Payload:", {
-        name,
-        email,
-        password,
-        roles,
-      });
-
       const response = await Api.post("/api/register", {
         name,
         email,
@@ -37,25 +41,37 @@ const Register = ({ title }) => {
         roles,
         status: "inactive"
       });
-      
-      console.log("Response:", response.data);
 
       if (response.data.success) {
-        toast.success("Register berhasil");
-        // Redirect to login page
-        window.location.href = "/login";
+        // Menampilkan toast "Register Berhasil!"
+        toast.success("Register Berhasil!", {
+          position: "top-center" // Menempatkan toast di tengah layar
+        });
+        // Menunda pengalihan halaman ke halaman login dengan delay 2 detik
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000);
       } else {
-        toast.error("Register gagal");
-        // Redirect back to register page
-        window.location.href = "/register";
+        // Menampilkan toast untuk registrasi gagal
+        toast.error(response.data.message, {
+          position: "top-center" // Menempatkan toast di tengah layar
+        });
       }
     } catch (error) {
       console.error("Error:", error.response.data);
+      // Menampilkan toast untuk registrasi gagal
+      toast.error("Registrasi Gagal!", {
+        position: "top-center" // Menempatkan toast di tengah layar
+      });
+    } finally {
+      setIsLoading(false); // Set isLoading false setelah selesai proses registrasi, baik berhasil atau tidak
     }
-  };
+  }
 
   const handleChangeRole = (e) => {
-    setRoles(e.target.value);
+    const selectedRole = e.target.value;
+    const selectedRoleId = roleOptions.find((role) => role.label === selectedRole).value;
+    setRoles(selectedRoleId);
   };
 
   return (
@@ -158,20 +174,25 @@ const Register = ({ title }) => {
                 id="roles"
                 name="roles"
                 className="w-full border-2 border-green-500 rounded-lg p-2 placeholder:text-sm focus-visible:outline-none focus:border-green-400"
-                value={roles}
+                value={roleOptions.find((role) => role.value === roles)?.label}
                 onChange={handleChangeRole}
               >
-                <option value="pustakawan">Pustakawan</option>
-                <option value="anggota">Anggota</option>
+                {roleOptions.map((role) => (
+                  <option key={role.value} value={role.label}>{role.label}</option>
+                ))}
               </select>
             </div>
 
             <div className="w-full">
-              <input
+              <button
                 type="submit"
-                value="Register"
-                className="w-full bg-green-500 px-2 py-3 mt-4 text-white font-semibold tracking-widest uppercase rounded-lg hover:bg-green-300 cursor-pointer"
-              />
+                className={`w-full bg-green-500 px-2 py-3 mt-4 text-white font-semibold tracking-widest uppercase rounded-lg hover:bg-green-300 cursor-pointer ${
+                  isLoading ? "opacity-50 cursor-not-allowed" : "" // Tambahkan style untuk men-disable tombol saat isLoading true
+                }`}
+                disabled={isLoading} // Disable tombol register saat isLoading true
+              >
+                {isLoading ? "Loading..." : "Register"} {/* Tampilkan teks "Loading..." saat isLoading true */}
+              </button>
             </div>
           </form>
           <p className="text-sm text-center text-gray-500 mt-4">

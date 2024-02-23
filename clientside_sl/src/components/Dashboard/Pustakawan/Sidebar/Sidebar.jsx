@@ -13,10 +13,34 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../../../ColorContext/darkContext';
 import './Sidebar.scss';
+import Api from "../../../../api/index";
+import Cookies from "js-cookie";
+import { toast } from 'react-toastify';
 
 function Sidebar() {
     // color state management using react context
     const { darkMode, dispatch } = useContext(ColorContext);
+
+    const handleLogout = async () => {
+        try {
+            await Api.post("/api/logout");
+
+            Cookies.remove("user");
+            Cookies.remove("token");
+            Cookies.remove("permissions");
+            localStorage.removeItem("token");
+
+            toast.success("Logout Successfully!", {
+                position: "top-right",
+                duration: 4000,
+            });
+
+            // Arahkan pengguna kembali ke halaman login
+            window.location.href = "/";
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <div className="sidebar">
@@ -41,7 +65,6 @@ function Sidebar() {
                             <BookIcon className="icon" /> Data Buku
                         </li>
                     </Link>
-                    
 
                     {/* <Link to="/dashboard-pustakawan/kategori-buku" style={{ textDecoration: 'none' }}>
                         <li>
@@ -60,7 +83,7 @@ function Sidebar() {
                             <BookmarkRemoveIcon className="icon" /> Pengembalian Buku
                         </li>
                     </Link>
-                    <li>
+                    <li onClick={handleLogout}>
                         <LogoutIcon className="icon" /> Logout
                     </li>
                 </ul>

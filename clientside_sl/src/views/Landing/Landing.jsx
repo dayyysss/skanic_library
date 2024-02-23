@@ -1,10 +1,10 @@
 import React from "react";
 import Navbar from "../../components/Landing/Navbar";
-import Home from "../../components/Landing/Home";
-import About from "../../components/Landing/About";
-import Courses from "../../components/Landing/Courses";
-import Reviews from "../../components/Landing/Reviews";
-import Contact from "../../components/Landing/Contact";
+import Home from "../../components/Landing/Beranda";
+import About from "../../components/Landing/Tentang";
+import Courses from "../../components/Landing/Layanan";
+import Reviews from "../../components/Landing/Pustakawan";
+import Contact from "../../components/Landing/Kontak";
 import Footer from "../../components/Landing/Footer";
 
 const Landing = () => {

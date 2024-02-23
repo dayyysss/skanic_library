@@ -4,7 +4,7 @@ import Button from "../../layouts/Landing/Button";
 import Heading from "../../layouts/Landing/Heading";
 import { Link } from "react-scroll";
 
-const About = () => {
+const Tentang = () => {
   return (
     <div className=" md:min-h-screen flex flex-col-reverse md:flex-row items-center gap-5 md:mx-32 mx-5 mt-14">
       <div className=" w-full md:w-2/4">
@@ -27,4 +27,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Tentang;

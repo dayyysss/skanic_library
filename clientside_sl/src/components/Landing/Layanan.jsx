@@ -1,12 +1,12 @@
 import React from "react";
 import Heading from "../../layouts/Landing/Heading";
-import CoursesCard from "../../layouts/Landing/CoursesCard";
+import CoursesCard from "../../layouts/Landing/LayananCard";
 import webImg from "../../assets/web-dev.svg";
 import appImg from "../../assets/App-dev.svg";
 import graphicImg from "../../assets/graphic.svg";
 import digitalImg from "../../assets/digital.svg";
 
-const Courses = () => {
+const Layanan = () => {
   return (
     <div className=" min-h-screen flex flex-col items-center md:px-32 px-5 my-10">
       <Heading title1="Nikmati Layanan" title2="Skanic Library" />
@@ -21,4 +21,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default Layanan;

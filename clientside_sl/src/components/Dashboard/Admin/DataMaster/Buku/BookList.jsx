@@ -105,7 +105,7 @@ const BookList = () => {
         <table className="w-full table-auto mt-4 border border-slate-500 border-collapse bg-white shadow-md">
           <thead>
             <tr>
-              <th className="px-4 py-2">No</th>
+              <th className="px-4 py-2">Id</th>
               <th className="px-4 py-2">Title</th>
               <th className="px-4 py-2">Synopsis</th>
               <th className="px-4 py-2">ISBN</th>

@@ -43,30 +43,11 @@ function ProgressBar() {
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <p>Total sales made today.</p>
+                <p>Total </p>
                 <p className="price">
-                    <AttachMoneyOutlinedIcon style={{ fontSize: '32px' }} />
+                    <AttachMoneyOutlinedIcon style={{ fontSize: '30px' }} />
                     324
                 </p>
-            </div>
-
-            <div className="bottom">
-                <p>Previous transection processing. Last payments may not be included.</p>
-
-                <div className="botom_nested">
-                    <div className="nested_nested">
-                        <p>Last Week</p>
-                        <p className="pricee">
-                            <KeyboardArrowUpOutlinedIcon /> $11.9k
-                        </p>
-                    </div>
-                    <div className="nested_nested">
-                        <p>Last Month</p>
-                        <p className="pricee decrese">
-                            <KeyboardArrowUpOutlinedIcon /> $12.4k
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
     );

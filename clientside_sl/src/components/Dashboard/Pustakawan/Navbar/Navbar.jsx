@@ -44,7 +44,7 @@ function Navbar() {
                         <MenuIcon className="menu_icon" onClick={handleToggle} />
                     )}
 
-                    <Link to="/" style={{ textDecoration: 'none' }}>
+                    <Link to="/dashboard-pustakawan" style={{ textDecoration: 'none' }}>
                         <h3 className="text_none">Dashboard</h3>
                     </Link>
                 </div>

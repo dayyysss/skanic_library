@@ -9,10 +9,12 @@ const DashboardNav = () => {
         setOpen(!open);
     };
 
-    const logout = () => {
-        // Redirect to the login page
-        window.location.href = '/login';
-    };
+    const handleLogout = () => {
+        // Hapus token dari local storage
+        localStorage.removeItem("token");
+        // Arahkan pengguna kembali ke halaman login
+        window.location.href = "/";
+      };
 
     return (
         <div className=''>
@@ -38,7 +40,7 @@ const DashboardNav = () => {
                             <div className='bg-white border h-[120px] w-[150px] absolute bottom-[-135px] z-20 right-0 pt-[15px] pl-[15px] space-y-[10px]'>
                                 <p className='cursor-pointer hover:text-[blue] font-semibold'>Profile</p>
                                 <p className='cursor-pointer hover:text-[blue] font-semibold'>Settings</p>
-                                <p className='cursor-pointer hover:text-[blue] font-semibold' onClick={logout}>Log out</p>
+                                <p className='cursor-pointer hover:text-[blue] font-semibold' onClick={handleLogout}>Log out</p>
                             </div>
                         }
                     </div>

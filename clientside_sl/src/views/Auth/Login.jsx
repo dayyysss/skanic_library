@@ -1,53 +1,78 @@
-// Update the import statements at the top
 import React, { useState } from "react";
 import Ilustration from "../../assets/ilus-logdaf.svg";
 import { Link } from "react-router-dom";
-import Api from "../../api/index.jsx"; // Update the import path
+import Api from "../../api/index.jsx";
+import Cookies from "js-cookie";
+import { toast } from "react-hot-toast";
 
-const Login = ({ title }) => {
+const Login = () => {
+  document.title = "Login - Skanic Library";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleRememberMeChange = () => {
+    setRememberMe(!rememberMe);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    setIsLoading(true);
+
     try {
-      // Log the request payload before making the API call
-      console.log("Request Payload:", { email, password });
-  
       const response = await Api.post("/api/login", {
         email,
         password,
       });
-  
-      // Handle successful login
-      console.log(response.data);
-  
+
       if (response.data.success) {
-        // Redirect ke halaman dashboard sesuai peran
-        const role = response.data.role;
-        switch (role) {
-          case "admin":
-            window.location.href = "/dashboard-admin";
-            break;
-          case "pustakawan":
-            window.location.href = "/dashboard-pustakawan";
-            break;
-          case "anggota":
-            window.location.href = "/dashboard-anggota";
-            break;
-          default:
-            // Redirect ke halaman default jika peran tidak dikenali
-            window.location.href = "/login";
-            break;
+        const { roles, token } = response.data;
+        localStorage.setItem("token", token);
+
+        let redirectPath = "";
+        if (roles.includes("admin")) {
+          redirectPath = "/dashboard-admin";
+        } else if (roles.includes("pustakawan")) {
+          redirectPath = "/dashboard-pustakawan";
+        } else if (roles.includes("anggota")) {
+          redirectPath = "/dashboard-anggota";
+        } else {
+          console.error("Invalid roles");
+          return;
         }
+
+        // Menampilkan toast untuk login berhasil
+        toast.success("Login Berhasil!", {
+          position: "top-center", // Menempatkan toast di tengah atas layar
+        });
+
+        // Menunda pengalihan halaman ke dashboard dengan delay 2 detik
+        setTimeout(() => {
+          window.location.href = redirectPath;
+        }, 2000);
+
+        if (rememberMe) {
+          Cookies.set("rememberedEmail", email);
+        } else {
+          Cookies.remove("rememberedEmail");
+        }
+      } else {
+        // Menampilkan toast untuk login gagal
+        toast.error("Gagal masuk, email atau kata sandi salah", {
+          position: "top-center",
+        });
       }
     } catch (error) {
-      // Handle login failure, e.g., show an error message
-      console.error(error.response.data.error);
+      console.error(error);
+      toast.error("Terjadi kesalahan saat masuk", {
+        position: "top-center",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
-  
 
   return (
     <div className="grid md:grid-cols-2 md:gap- place-items-center w-full min-h-screen">
@@ -64,7 +89,7 @@ const Login = ({ title }) => {
               <label
                 htmlFor="email"
                 className="mb-1 text-sm text-green-400 font-semibold uppercase"
-                style={{ alignSelf: "flex-start", marginLeft: "2px" }} // Menambahkan gaya CSS untuk memindahkan label ke kiri atas input
+                style={{ alignSelf: "flex-start", marginLeft: "2px" }}
               >
                 Email
               </label>
@@ -84,7 +109,7 @@ const Login = ({ title }) => {
               <label
                 htmlFor="password"
                 className="mb-1 text-sm text-green-400 font-semibold uppercase"
-                style={{ alignSelf: "flex-start", marginLeft: "2px" }} // Menambahkan gaya CSS untuk memindahkan label ke kiri atas input
+                style={{ alignSelf: "flex-start", marginLeft: "2px" }}
               >
                 Password
               </label>
@@ -99,12 +124,30 @@ const Login = ({ title }) => {
                 required
               />
             </div>
-            <div className="w-full">
+
+            <div className="flex items-center mt-4">
               <input
-                type="submit"
-                value="Login"
-                className="w-full bg-green-500 px-2 py-3 mt-4 text-white font-semibold tracking-widest uppercase rounded-lg hover:bg-green-300 cursor-pointer"
+                type="checkbox"
+                id="rememberMe"
+                checked={rememberMe}
+                onChange={handleRememberMeChange}
+                className="mr-2"
               />
+              <label htmlFor="rememberMe" className="text-sm text-gray-600">
+                Remember Me
+              </label>
+            </div>
+
+            <div className="w-full">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className={`w-full bg-green-500 px-2 py-3 mt-4 text-white font-semibold tracking-widest uppercase rounded-lg hover:bg-green-300 cursor-pointer ${
+                  isLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                {isLoading ? "Loading..." : "Login"}
+              </button>
             </div>
           </form>
           <p className="text-sm text-center text-gray-500 mt-4">

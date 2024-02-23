@@ -3,7 +3,7 @@ import img from "../../assets/hero.svg";
 import Button from "../../layouts/Landing/Button";
 import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Beranda = () => {
   const navigate = useNavigate();
 
   const handleCariBukuClick = () => {
@@ -28,10 +28,10 @@ const Home = () => {
       </div>
 
       <div className="w-full md:w-2/4">
-        <img src={img} alt="img" />
+        <img src={img} alt="img" className="mt-10" />
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Beranda;

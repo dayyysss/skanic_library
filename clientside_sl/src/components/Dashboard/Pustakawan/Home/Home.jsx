@@ -4,7 +4,6 @@ import ItemLists from '../ItemLists/ItemLists';
 import Navbar from '../Navbar/Navbar';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Sidebar from '../Sidebar/Sidebar';
-import TableList from '../TableList/TableList';
 import './Home.scss';
 
 function Home() {
@@ -21,10 +20,9 @@ function Home() {
                 <div className="bg_color" />
 
                 <div className="home_items">
-                    <ItemLists type="user" />
-                    <ItemLists type="orders" />
-                    <ItemLists type="products" />
-                    <ItemLists type="balance" />
+                    <ItemLists type="data-buku" />
+                    <ItemLists type="peminjaman-buku" />
+                    <ItemLists type="pengembalian-buku" />
                 </div>
 
                 <div className="chart_sec">
@@ -32,11 +30,7 @@ function Home() {
                     <Chart height={450} title="Grafik Peminjaman" />
                 </div>
 
-                <div className="table">
-                    <div className="title">Latest Transactions</div>
-                    <TableList />
-                </div>
-            </div>
+    </div>
         </div>
     );
 }
