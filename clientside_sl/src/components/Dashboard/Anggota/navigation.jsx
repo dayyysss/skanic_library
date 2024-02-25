@@ -4,6 +4,7 @@ import { PiToolbox } from "react-icons/pi";
 import { MdHistory } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuBookDown } from "react-icons/lu";
+import { PiBooksLight } from "react-icons/pi";
 
 export const DASHBOARD_SIDEBAR_LINKS = [
   {
@@ -11,6 +12,12 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     label: "Dashboard",
     path: "/dashboard-anggota",
     icon: <CiHome fontSize={26} />,
+  },
+  {
+    key: "daftarbuku",
+    label: "Daftar Buku",
+    path: "/dashboard-anggota/daftar-buku",
+    icon: <PiBooksLight fontSize={26} />,
   },
   {
     key: "peminjaman",

@@ -29,13 +29,13 @@ const SidebarAdmin = () => {
         {/* Section Header */}
         <p className='text-[10px] font-extrabold leading-[16px] text-white/[0.4]'> DATA MASTER </p>
 
-        {/* Admin Link */}
+        {/* Admin Link
         <NavLink to="/dashboard-admin/admin" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer' activeClassName="selected">
           <div className='flex items-center gap-[10px]'>
             <RiAdminFill color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Admin</p>
           </div>
           <FaChevronRight color='white' />
-        </NavLink>
+        </NavLink> */}
 
         {/* Pustakawan Link */}
         <NavLink to="/dashboard-admin/pustakawan" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
@@ -62,12 +62,12 @@ const SidebarAdmin = () => {
         </NavLink>
 
         {/* Kategori Buku Link */}
-        <NavLink to="/dashboard-admin/kategori" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+        {/* <NavLink to="/dashboard-admin/kategori" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
           <div className='flex items-center gap-[10px]'>
             <IoBookmarks color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Kategori</p>
           </div>
           <FaChevronRight color='white' />
-        </NavLink>
+        </NavLink> */}
       </div>
 
       {/* Data Transaksi Section */}

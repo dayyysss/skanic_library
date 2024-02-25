@@ -41,6 +41,7 @@ import './app.scss'
 
 // Dashboard Anggota
 import HomeAnggota from './components/Dashboard/Anggota/Home/HomeAnggota'
+import DaftarBukuA from './views/Dashboard/Anggota/DaftarBuku/DaftarBukuA'
 import PeminjamanBukuA from './views/Dashboard/Anggota/Peminjaman/PeminjamanA'
 import PengembalianBukuA from './views/Dashboard/Anggota/Pengembalian/PengembalianA'
 import RiwayatBukuA from './views/Dashboard/Anggota/Riwayat/RiwayatA'
@@ -104,6 +105,7 @@ function App() {
                     <Route path="/dashboard-anggota">
                         <Route index element={<HomeAnggota />} />
                         {/* nested routes */}
+                        <Route path="daftar-buku/*" element={<DaftarBukuA type="buku" />} />
                         <Route path="peminjaman-buku/*" element={<PeminjamanBukuA type="buku" />} />
                         <Route path="pengembalian-buku/*" element={<PengembalianBukuA type="kategori" />} />
                         <Route path="riwayat-buku/*" element={<RiwayatBukuA type="peminjaman" />} />

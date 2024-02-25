@@ -2,158 +2,198 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 const AddBook = () => {
-  const [ID, setID] = useState("");
-  const [name, setName] = useState("");
-  const [gender, setGender] = useState("M");
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const [title, setTitle] = useState("");
+  const [synopsis, setSynopsis] = useState("");
+  const [isbn, setIsbn] = useState("");
+  const [writer, setWriter] = useState("");
+  const [page_amount, setPageAmount] = useState("");
+  const [stock_amount, setStockAmount] = useState("");
+  const [published, setPublished] = useState("");
+  const [category, setCategory] = useState("");
+  const [image, setImage] = useState("");
+  const [status, setStatus] = useState("Tersedia");
   const navigate = useNavigate();
 
-  const data = {
-    _id: ID,
-    name,
-    gender,
-    address,
-    email,
-    phone,
-  };
-
-  const createMember = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("synopsis", synopsis);
+    formData.append("isbn", isbn);
+    formData.append("writer", writer);
+    formData.append("page_amount", page_amount);
+    formData.append("stock_amount", stock_amount);
+    formData.append("published", published);
+    formData.append("category", category);
+    formData.append("image", image);
+    formData.append("status", status);
 
     try {
-      await addMemberFunc(data);
-      navigate("/members");
-    } catch (error) {
-      if (error.response) {
-        setMessage(error.response.data.message);
-        return;
+      const response = await fetch("http://127.0.0.1:8000/api/book/create", {
+        method: "POST",
+        body: formData,
+      });
+      if (response.ok) {
+        navigate("/dashboard-admin/buku");
+      } else {
+        console.error("Gagal menambahkan buku");
       }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+
   return (
-    <div className='px-[25px] pt-[25px] bg-[#F8F9FC]'>
-    <div className='flex items-center justify-between'>
-      <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer mb-6'>Tambah Data Buku</h1>
+    <div className="px-[25px] pt-[25px] bg-[#F8F9FC]">
+      <div className="flex items-center justify-between">
+        <h1 className="text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer mb-6">
+          Tambah Data Buku
+        </h1>
       </div>
 
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <form onSubmit={createMember}>
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              No
-            </label>
-            <input
-              type="text"
-              pattern="\d*"
-              maxLength="10"
-              minLength="10"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              value={ID}
-              onChange={(e) => setID(e.target.value)}
-              placeholder="ID"
-              required={true}
-            />
-          </div>
-          <p className="text-red-500">{message}</p>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Name
+              Nama Buku
             </label>
             <input
               type="text"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Name"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Masukkan nama buku"
               required={true}
             />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Gender
+              Synopsis
             </label>
-            <div className="relative">
-              <select
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                required={true}
-                className="block appearance-none w-full bg-white border border-gray-400 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:border-gray-500 focus:shadow-outline"
-              >
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  className="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 12a2 2 0 100-4 2 2 0 000 4z"
-                    clipRule="evenodd"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M10 20a2 2 0 100-4 2 2 0 000 4z"
-                    clipRule="evenodd"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M10 4a2 2 0 100-4 2 2 0 000 4z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
+            <input
+              type="text"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={synopsis}
+              onChange={(e) => setSynopsis(e.target.value)}
+              placeholder="Masukkan synopsis singkat"
+              required={true}
+            />
+          </div>
+          <div className="mb-4 flex flex-col">
+            <label className="text-gray-700 text-sm font-bold mb-2">ISBN</label>
+            <div className="flex">
+              <input
+                type="text"
+                maxLength="13"
+                value={isbn}
+                onChange={(e) => setIsbn(e.target.value)}
+                placeholder="Masukkan no isbn buku"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
             </div>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Address
+              Penulis
             </label>
             <input
               type="text"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder="Address"
+              value={writer}
+              onChange={(e) => setWriter(e.target.value)}
+              placeholder="Masukkan penulis buku"
+              required={true}
+            />
+          </div>
+          <div className="mb-4 flex flex-col">
+            <label className="text-gray-700 text-sm font-bold mb-2">
+              Jumlah Halaman
+            </label>
+            <div className="flex">
+              <input
+                type="number"
+                value={page_amount}
+                onChange={(e) => setPageAmount(e.target.value)}
+                placeholder="Masukkan jumlah halaman buku"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+          </div>
+          <div className="mb-4 flex flex-col">
+            <label className="text-gray-700 text-sm font-bold mb-2">
+              Stok Buku
+            </label>
+            <div className="flex">
+              <input
+                type="number"
+                value={stock_amount}
+                onChange={(e) => setStockAmount(e.target.value)}
+                placeholder="Masukkan stok buku"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Tahun Terbit
+            </label>
+            <input
+              type="number"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={published}
+              onChange={(e) => setPublished(e.target.value)}
+              placeholder="Masukkan tahun terbit"
               required={true}
             />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              required={true}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Phone
+              Kategori
             </label>
             <input
               type="text"
-              pattern="\d*"
-              maxLength="13"
-              minLength="11"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="11-13 length"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              placeholder="Masukkan kategori buku"
               required={true}
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="mb-4 flex flex-col">
+            <label className="text-gray-700 text-sm font-bold mb-2">
+              Sampul Buku
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={handleFileUpload}
+              required
+            />
+          </div>
+          <div className="mb-4 flex flex-col">
+            <label className="text-gray-700 text-sm font-bold mb-2">
+              Status
+            </label>
+            <div className="flex">
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="Tersedia">Tersedia</option>
+                <option value="Tidak Tersedia">Tidak Tersedia</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="col-span-2 flex justify-between">
             <button
               type="submit"
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -161,8 +201,8 @@ const AddBook = () => {
               Tambah
             </button>
             <Link
-              to={"dashboard-admin"}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              to="/dashboard-admin/buku"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4"
             >
               Batal
             </Link>

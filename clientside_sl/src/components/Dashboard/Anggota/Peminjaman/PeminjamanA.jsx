@@ -1,146 +1,76 @@
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { IoIosArrowDropdown } from "react-icons/io";
+import React from 'react'
 
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+// mui table
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
-import bookImage from '../../../../assets/Books/sololeveling.jpg';
+// import dummy image
+import book1 from '../../../../assets/ImagesNew/book1.jpg';
 
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Example() {
+const PeminjamanA = () => {
+      // Replace this data with your own
+      const data = [
+        {
+            _id: 23423343,
+            product: 'Programing Book 1',
+            image: book1,
+            customer: 'Devid John',
+            date: '3 October, 2022',
+            ammount: 45,
+            method: 'Online Payment',
+            status: 'Approved',
+        },
+        ];
   return (
     <>
-      <div className="px-[25px] pt-[25px] bg-[#F8F9FC] pb-[500px]">
-        <h1 className="text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer">
-          Peminjaman Buku
-        </h1>
-        <div className="flex items-center justify-between">
-          <h1 className="pb-5">Buku Yang Tersedia : 20</h1>
+    <div className="px-[25px] pt-[25px] bg-[#F8F9FC] pb-[500px]">
+      <h1 className="text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer">
+        Buku Yang Di Pinjam
+      </h1>
 
-          <Menu as="div" className="relative inline-block text-left">
-            <div>
-              <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                Kategori
-                <IoIosArrowDropdown
-                  className="-mr-1 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-              </Menu.Button>
-            </div>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1">
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Komik
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Novel
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <a
-                        href="#"
-                        className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
-                          "block px-4 py-2 text-sm"
-                        )}
-                      >
-                        Fiksi
-                      </a>
-                    )}
-                  </Menu.Item>
-                  <form method="POST" action="#">
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button
-                          type="submit"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block w-full px-4 py-2 text-left text-sm"
-                          )}
-                        >
-                          Non Fiksi
-                        </button>
-                      )}
-                    </Menu.Item>
-                  </form>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
-        </div>
-
-        <Card sx={{ maxWidth: 200 }}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image={bookImage} // Menggunakan variabel yang menyimpan alamat gambar
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div" className="cursor-pointer">
-          Solo Leveling
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over
-          6,000 species, ranging across all continents except Antarctica
-        </Typography>
-      </CardContent>
-    </Card>
-    
-      </div>
-      <Stack spacing={2}>
-      <Pagination count={10} shape="rounded" />
-      <Pagination count={10} variant="outlined" shape="rounded" />
-    </Stack>
-    </>
-  );
+      <TableContainer component={Paper} className="table_list mt-7">
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell className="table_cell">ISBN</TableCell>
+                        <TableCell className="table_cell">Judul</TableCell>
+                        <TableCell className="table_cell">Tanggal Meminjam</TableCell>
+                        <TableCell className="table_cell">Ammount</TableCell>
+                        <TableCell className="table_cell">Date</TableCell>
+                        <TableCell className="table_cell">Payment Status</TableCell>
+                        <TableCell className="table_cell">Status</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {data.map((row) => (
+                        <TableRow key={row._id}>
+                            <TableCell component="th" scope="row" className="table_cell">
+                                <div className="product_idd">
+                                    <img src={row.image} alt="product" className="product_img" />
+                                    {row._id}
+                                </div>
+                            </TableCell>
+                            <TableCell className="table_cell">{row.product}</TableCell>
+                            <TableCell className="table_cell">{row.customer}</TableCell>
+                            <TableCell className="table_cell">{row.ammount}</TableCell>
+                            <TableCell className="table_cell">{row.date}</TableCell>
+                            <TableCell className="table_cell">{row.method}</TableCell>
+                            <TableCell className="table_cell">
+                                <span className={`status ${row.status}`}>{row.status}</span>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    </div>
+  </>
+  )
 }
+
+export default PeminjamanA

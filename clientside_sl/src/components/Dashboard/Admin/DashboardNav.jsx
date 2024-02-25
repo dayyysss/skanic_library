@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaSearch, FaEnvelope, FaRegBell } from "react-icons/fa";
-import profile from "../../../assets/user.svg";
+import profile from "../../../assets/images/profile.png";
 
 const DashboardNav = () => {
     const [open, setOpen] = useState(false);
