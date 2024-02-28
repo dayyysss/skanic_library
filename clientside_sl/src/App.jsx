@@ -5,6 +5,10 @@ import Landing from './views/Landing/Landing'
 import Login from './views/Auth/Login'
 import Register from './views/Auth/Register'
 import NotFound from './views/NotFound'
+import Cookies from 'js-cookie';
+
+// // Import PrivateRoute component
+// import PrivateRoute from './context/privateRoute';
 
 // Dashboard Admin
 import HomeAdmin from './components/Dashboard/Admin/Home/HomeAdmin';
@@ -29,7 +33,7 @@ import TransPengembalian from './views/Dashboard/Admin/DataTransaksi/Pengembalia
 import TransDenda from './views/Dashboard/Admin/DataTransaksi/Denda'
 
 // Dashboard Pustakawan
-import { ColorContext } from './ColorContext/darkContext';
+import { ColorContext } from './context/darkContext';
 import HomePustakawan from './components/Dashboard/Pustakawan/Home/Home';
 import ListBooks from './views/Dashboard/Pustakawan/DataBuku/BooksList'
 import TambahBukuP from './views/Dashboard/Pustakawan/DataBuku/BookAdd'
@@ -46,6 +50,7 @@ import PeminjamanBukuA from './views/Dashboard/Anggota/Peminjaman/PeminjamanA'
 import PengembalianBukuA from './views/Dashboard/Anggota/Pengembalian/PengembalianA'
 import RiwayatBukuA from './views/Dashboard/Anggota/Riwayat/RiwayatA'
 import DendaA from './views/Dashboard/Anggota/Denda/DendaA'
+
 
 function App() {
     // color state management using react context

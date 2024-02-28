@@ -69,7 +69,7 @@ function Chart({ height, title }) {
                 <div style={{ width: '100%', height: 300 }}>
                     {/* <ResponsiveContainer> */}
                     <AreaChart
-                        width={930}
+                        width={1300}
                         height={height}
                         data={data}
                         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}

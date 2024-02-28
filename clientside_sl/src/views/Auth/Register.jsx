@@ -16,7 +16,7 @@ const Register = ({ title }) => {
 
   const roleOptions = [
     { label: "Pustakawan", value: 2 },
-    { label: "Anggota", value: 3 },
+    { label: "Anggota", value: 3 }, 
   ];
 
   const handleSubmit = async (e) => {

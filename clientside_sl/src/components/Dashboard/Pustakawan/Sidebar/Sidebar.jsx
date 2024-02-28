@@ -1,46 +1,33 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import BookIcon from '@mui/icons-material/Book';
-import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
-import PersonIcon from '@mui/icons-material/Person';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import TableChartIcon from '@mui/icons-material/TableChart';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ColorContext } from '../../../../ColorContext/darkContext';
+import { ColorContext } from '../../../../context/darkContext';
 import './Sidebar.scss';
 import Api from "../../../../api/index";
 import Cookies from "js-cookie";
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 function Sidebar() {
     // color state management using react context
     const { darkMode, dispatch } = useContext(ColorContext);
 
-    const handleLogout = async () => {
-        try {
-            await Api.post("/api/logout");
-
-            Cookies.remove("user");
-            Cookies.remove("token");
-            Cookies.remove("permissions");
-            localStorage.removeItem("token");
-
-            toast.success("Logout Successfully!", {
-                position: "top-right",
-                duration: 4000,
-            });
-
-            // Arahkan pengguna kembali ke halaman login
-            window.location.href = "/";
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    const handleLogout = () => {
+        // Hapus token dari local storage
+        localStorage.removeItem("token");
+        // Tampilkan pemberitahuan logout berhasil di tengah layar
+        toast.success("Logout berhasil!", {
+          position: "top-center",
+        });
+        // Tunda pengalihan ke halaman login setelah 2 detik
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000); // Ubah angka 2000 menjadi jumlah milidetik yang Anda inginkan
+      };
 
     return (
         <div className="sidebar">

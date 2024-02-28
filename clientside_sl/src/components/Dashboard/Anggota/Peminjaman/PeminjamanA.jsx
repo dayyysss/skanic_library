@@ -17,9 +17,9 @@ const PeminjamanA = () => {
       const data = [
         {
             _id: 23423343,
-            product: 'Programing Book 1',
+            judul: 'Solo Leveling',
             image: book1,
-            customer: 'Devid John',
+            tanggal: '12-02-2024',
             date: '3 October, 2022',
             ammount: 45,
             method: 'Online Payment',
@@ -55,8 +55,8 @@ const PeminjamanA = () => {
                                     {row._id}
                                 </div>
                             </TableCell>
-                            <TableCell className="table_cell">{row.product}</TableCell>
-                            <TableCell className="table_cell">{row.customer}</TableCell>
+                            <TableCell className="table_cell">{row.judul}</TableCell>
+                            <TableCell className="table_cell">{row.tanggal}</TableCell>
                             <TableCell className="table_cell">{row.ammount}</TableCell>
                             <TableCell className="table_cell">{row.date}</TableCell>
                             <TableCell className="table_cell">{row.method}</TableCell>

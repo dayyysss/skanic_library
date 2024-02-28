@@ -16,20 +16,23 @@ const BookList = () => {
 
   useEffect(() => {
     getBooks();
-  }, [page, query]);
+  }, [page]); // Add page as dependency
 
   const getBooks = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/book/`);
-      const data = await response.json();
-      setBooks(data.data);
-      setPage(data.current_page);
-      setTotalPages(data.total_pages);
-      setTotalBooks(data.total_books);
+      const response = await fetch(`/api/book?page=${page}`);
+      const responseData = await response.json(); // Ekstrak data JSON dari respons
+      console.log(responseData); // Cetak data JSON
+      setBooks(responseData.data);
+      setTotalBooks(responseData.total);
+      setTotalPages(responseData.last_page);
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching books:", error.message);
+      setMessage("Error fetching books. Please try again later.");
     }
   };
+  
+  
 
   const deleteBook = async (id) => {
     try {
@@ -46,7 +49,6 @@ const BookList = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     setPage(1);
-    getBooks();
   };
 
   const handleClickDelete = (id) => {

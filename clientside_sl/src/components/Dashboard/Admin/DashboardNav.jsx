@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaSearch, FaEnvelope, FaRegBell } from "react-icons/fa";
 import profile from "../../../assets/images/profile.png";
+import { toast } from 'react-hot-toast';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DashboardNav = () => {
     const [open, setOpen] = useState(false);
@@ -12,9 +14,17 @@ const DashboardNav = () => {
     const handleLogout = () => {
         // Hapus token dari local storage
         localStorage.removeItem("token");
-        // Arahkan pengguna kembali ke halaman login
-        window.location.href = "/";
-      };
+        // Tampilkan pemberitahuan logout berhasil di tengah layar
+        toast.success("Logout berhasil!", {
+            position: "top-center",
+        });
+        // Tunda pengalihan ke halaman login setelah 2 detik
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 2000); // Ubah angka 2000 menjadi jumlah milidetik yang Anda inginkan
+    };
+    
+    
 
     return (
         <div className=''>

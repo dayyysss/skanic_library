@@ -5,6 +5,7 @@ import {
 } from "./navigation";
 import { Link, useLocation } from "react-router-dom";
 import { MdOutlineLogout } from "react-icons/md";
+import { toast } from "react-hot-toast"
 
 function Sidebar() {
   const { pathname } = useLocation();
@@ -12,8 +13,14 @@ function Sidebar() {
   const handleLogout = () => {
     // Hapus token dari local storage
     localStorage.removeItem("token");
-    // Arahkan pengguna kembali ke halaman login
-    window.location.href = "/";
+    // Tampilkan pemberitahuan logout berhasil di tengah layar
+    toast.success("Logout berhasil!", {
+      position: "top-center",
+    });
+    // Tunda pengalihan ke halaman login setelah 2 detik
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 2000); // Ubah angka 2000 menjadi jumlah milidetik yang Anda inginkan
   };
 
   return (

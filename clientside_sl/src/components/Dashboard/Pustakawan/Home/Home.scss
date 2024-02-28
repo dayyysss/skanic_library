@@ -39,6 +39,7 @@
       .title {
         padding: 0px 0px 15px;
         color: gray;
+        text-align: right;
       }
     }
   }
@@ -69,11 +70,11 @@
       }
 
       .chart_sec {
-        display: grid;
-        grid-template-columns: 100%;
-        justify-content: center;
         gap: 20px;
+        padding: 20px 20px;
+        box-sizing: border-box;
       }
+      
     }
   }
 }

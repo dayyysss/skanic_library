@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Api from "../../../../../api";
 
 const AddBook = () => {
   const [title, setTitle] = useState("");
@@ -12,12 +13,13 @@ const AddBook = () => {
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
   const [status, setStatus] = useState("Tersedia");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const formData = new FormData();
+    const formData = new FormData();  
     formData.append("title", title);
     formData.append("synopsis", synopsis);
     formData.append("isbn", isbn);
@@ -28,25 +30,32 @@ const AddBook = () => {
     formData.append("category", category);
     formData.append("image", image);
     formData.append("status", status);
-
+  
     try {
       const response = await fetch("http://127.0.0.1:8000/api/book/create", {
         method: "POST",
         body: formData,
       });
+      
       if (response.ok) {
-        navigate("/dashboard-admin/buku");
+        const data = await response.json();
+        if (data.success) {
+          navigate("/dashboard-admin/buku");
+        } else {
+          setErrorMessage("Gagal menambahkan buku");
+        }
       } else {
-        console.error("Gagal menambahkan buku");
+        setErrorMessage("Gagal menambahkan buku");
       }
     } catch (error) {
       console.error("Error:", error);
+      setErrorMessage("Terjadi kesalahan saat menambahkan buku");
     }
   };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
-    setImage(file);
+    setImage(file); // Set file object to image state
   };
 
   return (
@@ -207,6 +216,7 @@ const AddBook = () => {
               Batal
             </Link>
           </div>
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         </form>
       </div>
     </div>

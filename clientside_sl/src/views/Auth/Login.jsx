@@ -17,20 +17,86 @@ const Login = () => {
     setRememberMe(!rememberMe);
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  
+  //   try {
+  //     const response = await Api.post("/api/login", {
+  //       email,
+  //       password,
+  //     });
+  
+  //     if (response.data.success) {
+  //       const { roles, permissions, token } = response.data;
+  //       localStorage.setItem("token", token);
+        
+  //       let redirectPath = "";
+  //       if (roles.includes("admin")) {
+  //         redirectPath = "/dashboard-admin";
+  //       } else if (roles.includes("pustakawan")) {
+  //         redirectPath = "/dashboard-pustakawan";
+  //       } else if (roles.includes("anggota")) {
+  //         redirectPath = "/dashboard-anggota";
+  //       } else {
+  //         console.error("Invalid roles");
+  //         return;
+  //       }
+        
+  //       // Menampilkan toast untuk login berhasil
+  //       toast.success("Login Berhasil!", {
+  //         position: "top-center", // Menempatkan toast di tengah atas layar
+  //       });
+        
+  //       // Menunda pengalihan halaman ke dashboard dengan delay 2 detik
+  //       setTimeout(() => {
+  //         // Cek izin pengguna
+  //         if (permissions && permissions.includes("view_dashboard")) {
+  //           window.location.href = redirectPath;
+  //         } else {
+  //           console.error("Insufficient permissions");
+  //           // Menampilkan toast untuk izin tidak mencukupi
+  //           toast.error("Anda tidak memiliki izin untuk mengakses halaman ini", {
+  //             position: "top-center",
+  //           });
+  //         }
+  //       }, 2000);
+        
+  //       if (rememberMe) {
+  //         Cookies.set("rememberedEmail", email);
+  //       } else {
+  //         Cookies.remove("rememberedEmail");
+  //       }
+  //     } else {
+  //       // Menampilkan toast untuk login gagal
+  //       toast.error("Gagal masuk, email atau kata sandi salah", {
+  //         position: "top-center",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Terjadi kesalahan saat masuk", {
+  //       position: "top-center",
+  //     });
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
       const response = await Api.post("/api/login", {
         email,
         password,
       });
-
+  
       if (response.data.success) {
         const { roles, token } = response.data;
         localStorage.setItem("token", token);
-
+        
         let redirectPath = "";
         if (roles.includes("admin")) {
           redirectPath = "/dashboard-admin";
@@ -42,17 +108,17 @@ const Login = () => {
           console.error("Invalid roles");
           return;
         }
-
+        
         // Menampilkan toast untuk login berhasil
         toast.success("Login Berhasil!", {
           position: "top-center", // Menempatkan toast di tengah atas layar
         });
-
+        
         // Menunda pengalihan halaman ke dashboard dengan delay 2 detik
         setTimeout(() => {
           window.location.href = redirectPath;
         }, 2000);
-
+        
         if (rememberMe) {
           Cookies.set("rememberedEmail", email);
         } else {
@@ -73,6 +139,8 @@ const Login = () => {
       setIsLoading(false);
     }
   };
+  
+  
 
   return (
     <div className="grid md:grid-cols-2 md:gap- place-items-center w-full min-h-screen">
