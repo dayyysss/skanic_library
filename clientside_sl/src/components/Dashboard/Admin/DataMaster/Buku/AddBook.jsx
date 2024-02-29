@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Api from "../../../../../api";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const AddBook = () => {
   const [title, setTitle] = useState("");
@@ -18,8 +20,8 @@ const AddBook = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const formData = new FormData();  
+
+    const formData = new FormData();
     formData.append("title", title);
     formData.append("synopsis", synopsis);
     formData.append("isbn", isbn);
@@ -29,26 +31,31 @@ const AddBook = () => {
     formData.append("published", published);
     formData.append("category", category);
     formData.append("image", image);
-    formData.append("status", status);
-  
+
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/book/create", {
-        method: "POST",
-        body: formData,
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          navigate("/dashboard-admin/buku");
-        } else {
-          setErrorMessage("Gagal menambahkan buku");
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/book/create-1",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${getAuthToken()}`,
+          },
         }
+      );
+
+      if (response.data.success) {
+        toast.success("Buku berhasil ditambahkan", { position: "top-center" });
+        navigate("/dashboard-admin/buku");
       } else {
+        toast.error("Gagal menambahkan buku", { position: "top-center" });
         setErrorMessage("Gagal menambahkan buku");
       }
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Terjadi kesalahan saat menambahkan buku", {
+        position: "top-center",
+      });
       setErrorMessage("Terjadi kesalahan saat menambahkan buku");
     }
   };
@@ -56,6 +63,15 @@ const AddBook = () => {
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setImage(file); // Set file object to image state
+  };
+
+  const getAuthToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("Token not available. Please login.");
+      return null;
+    }
+    return token;
   };
 
   return (
@@ -186,21 +202,6 @@ const AddBook = () => {
               required
             />
           </div>
-          <div className="mb-4 flex flex-col">
-            <label className="text-gray-700 text-sm font-bold mb-2">
-              Status
-            </label>
-            <div className="flex">
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              >
-                <option value="Tersedia">Tersedia</option>
-                <option value="Tidak Tersedia">Tidak Tersedia</option>
-              </select>
-            </div>
-          </div>
 
           <div className="col-span-2 flex justify-between">
             <button
@@ -211,7 +212,7 @@ const AddBook = () => {
             </button>
             <Link
               to="/dashboard-admin/buku"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-booold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4"
             >
               Batal
             </Link>
