@@ -15,7 +15,7 @@ const DeleteModal = ({ show, onDelete }) => {
           </button>
         </div>
         <div className={styles.title}>
-          <h1>Are You Sure You Want to Delete?</h1>
+          <h1>Apakah Anda Yakin Ingin Menghapus?</h1>
         </div>
         <div className={styles.footer}>
           <button
@@ -24,9 +24,9 @@ const DeleteModal = ({ show, onDelete }) => {
             }}
             id={styles.cancelBtn}
           >
-            Cancel
+            Batal
           </button>
-          <button onClick={onDelete}>Continue</button>
+          <button onClick={onDelete}>Hapus</button>
         </div>
       </div>
     </div>
