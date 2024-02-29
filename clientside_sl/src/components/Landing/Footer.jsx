@@ -52,15 +52,9 @@ const Footer = () => {
             Kontak
           </Link>
         </div>
-
-        <div className=" mt-4 md:mt-0">
-          <Link to="/" className=" font-semibold text-2xl p-1 cursor-pointer text-brightGreen">
-            Skanic Library
-          </Link>
-        </div>
       </div>
 
-      <div className=" text-center mt-4">
+      <div className=" text-center mt-4 mb-4">
         <p>
           @copyright developed by
           <span className="text-brightGreen px-2">incredible inc</span>|
