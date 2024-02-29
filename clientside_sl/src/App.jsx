@@ -41,6 +41,7 @@ import ListKategori from './views/Dashboard/Pustakawan/KategoriBuku/ListKategori
 // import TambahKategoriP from './views/Dashboard/Pustakawan/KategoriBuku/KategoriAdd'
 import PeminjamanBuku from './views/Dashboard/Pustakawan/Peminjaman/PeminjamanBuku'
 import PengembalianBuku from './views/Dashboard/Pustakawan/Pengembalian/PengembalianBuku'
+import ProfilePustakawan from './views/Dashboard/Pustakawan/Profile/Profile'
 import './app.scss'
 
 // Dashboard Anggota
@@ -95,6 +96,7 @@ function App() {
                     <Route path="/dashboard-pustakawan">
                         <Route index element={<HomePustakawan />} />
                         {/* nested routes */}
+                        <Route path="/dashboard-pustakawan/profile" element={<ProfilePustakawan type="buku" />} />
                         <Route path="data-buku/*" element={<ListBooks type="buku" />} />
                         <Route path="/dashboard-pustakawan/data-buku/tambah-buku/*" element={<TambahBukuP type="buku" />} />
 

@@ -18,6 +18,8 @@ const UpdateBook = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -208,7 +210,7 @@ const UpdateBook = () => {
               type="submit"
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Tambah
+              Edit
             </button>
             <Link
               to="/dashboard-admin/buku"

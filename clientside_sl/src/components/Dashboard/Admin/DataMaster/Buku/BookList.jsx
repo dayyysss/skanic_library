@@ -6,6 +6,7 @@ import axios from "axios";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
+import UpdateBook from "./UpdateBook"; // Import UpdateBook component
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -13,6 +14,8 @@ const BookList = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [totalBooks, setTotalBooks] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+  const [selectedBook, setSelectedBook] = useState(null); // State to hold selected book for editing
 
   useEffect(() => {
     fetchData();
@@ -77,21 +80,9 @@ const BookList = () => {
     }
   };
 
-  const handleEdit = (book) => {
-    setSelectedUserId(book.id);
-    setNewBook(user);
-    setIsModalOpen(true);
-  };
-
-  const handleUpdate = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.put(`http://127.0.0.1:8000/api/book/${id}/update`);
-      await fetchData();
-      setIsModalOpen(false);
-    } catch (error) {
-      console.error("Error updating user:", error);
-    }
+  const handleUpdate = async (bookId) => {
+    setIsModalOpen(true); // Open modal
+    setSelectedBook(bookId); // Set selected book for editing
   };
 
   const handleChangePage = (event, value) => {
@@ -210,6 +201,21 @@ const BookList = () => {
           </Stack>
         </div>
       </div>
+
+      {/* Modal for UpdateBook */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-md">
+            <button
+              className="absolute top-0 right-0 p-2"
+              onClick={() => setIsModalOpen(false)}
+            >
+              Close
+            </button>
+            <UpdateBook bookId={selectedBook} onClose={() => setIsModalOpen(false)} />
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -29,6 +29,7 @@ function Navbar() {
   const [toggle, setToggle] = useState(false);
   // color state management using react context
   const { darkMode, dispatch } = useContext(ColorContext);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
   const handleToggle = () => {
     setToggle(!toggle);
@@ -45,6 +46,10 @@ function Navbar() {
     setTimeout(() => {
       window.location.href = "/";
     }, 2000); // Ubah angka 2000 menjadi jumlah milidetik yang Anda inginkan
+  };
+
+  const toggleProfileDropdown = () => {
+    setShowProfileDropdown(!showProfileDropdown); // Toggle state untuk menampilkan atau menyembunyikan dropdown profil
   };
 
   return (
@@ -98,8 +103,25 @@ function Navbar() {
             <span className="badge">1</span>
           </div>
 
-          <div className="item">
-            <img className="admin_pic" src={admin} alt="admin" />
+          <div className="item_lists">
+            <div className="item">
+              <img
+                className="admin_pic"
+                src={admin}
+                alt="admin"
+                onClick={toggleProfileDropdown} // Menambahkan event onClick untuk menampilkan dropdown profil saat gambar admin diklik
+              />
+              {showProfileDropdown && ( // Menampilkan dropdown profil jika showProfileDropdown bernilai true
+                <div className='bg-white border h-[120px] w-[150px] absolute bottom-[-135px] z-20 right-0 pt-[15px] pl-[15px] space-y-[10px]'>
+                  <ul>
+                    <li>
+                      <Link to="/dashboard-pustakawan/profile">Lihat Profil</Link>
+                    </li>
+                    <li onClick={handleLogout} className="cursor-pointer">Logout</li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -132,15 +154,15 @@ function Navbar() {
 
                   <p className="spann">Data Transaksi</p>
                   <Link to="/dashboard-pustakawan/peminjaman-buku" style={{ textDecoration: 'none' }}>
-                        <li>
-                            <BookmarkAddIcon className="icon" /> Peminjaman Buku
-                        </li>
-                    </Link>
-                    <Link to="/dashboard-pustakawan/pengembalian-buku" style={{ textDecoration: 'none' }}>
-                        <li>
-                            <BookmarkRemoveIcon className="icon" /> Pengembalian Buku
-                        </li>
-                    </Link>
+                    <li>
+                      <BookmarkAddIcon className="icon" /> Peminjaman Buku
+                    </li>
+                  </Link>
+                  <Link to="/dashboard-pustakawan/pengembalian-buku" style={{ textDecoration: 'none' }}>
+                    <li>
+                      <BookmarkRemoveIcon className="icon" /> Pengembalian Buku
+                    </li>
+                  </Link>
                   <li onClick={handleLogout}>
                     <LogoutIcon className="icon" /> Logout
                   </li>
