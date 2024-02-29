@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import axios from "axios";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -20,11 +20,14 @@ const BookList = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/book?page=${page}`, {
-        headers: {
-          Authorization: `Bearer ${getAuthToken()}`,
-        },
-      });
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/book?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${getAuthToken()}`,
+          },
+        }
+      );
       if (response.data.success) {
         const { data, last_page, total } = response.data.data;
         setBooks(data);
@@ -48,13 +51,13 @@ const BookList = () => {
   const handleDelete = async (id) => {
     try {
       const result = await Swal.fire({
-        title: 'Yakin Hapus?',
-        text: 'Data akan dihapus dari database',
-        icon: 'warning',
+        title: "Yakin Mau Hapus?",
+        text: "Data akan dihapus dari database",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Hapus saja!',
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, Hapus saja!",
       });
       if (result.isConfirmed) {
         await axios.delete(`http://127.0.0.1:8000/api/book/${id}`, {
@@ -64,13 +67,13 @@ const BookList = () => {
         });
         fetchData();
         Swal.fire({
-          title: 'Deleted!',
-          text: 'Your file has been deleted.',
-          icon: 'success',
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
         });
       }
     } catch (error) {
-      console.error('Error deleting user:', error);
+      console.error("Error deleting user:", error);
     }
   };
 
@@ -87,7 +90,7 @@ const BookList = () => {
       await fetchData();
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Error updating user:', error);
+      console.error("Error updating user:", error);
     }
   };
 
@@ -102,7 +105,7 @@ const BookList = () => {
 
   return (
     <>
-      <div className="px-[25px] pt-[25px] pb-[30px] bg-[#F8F9FC]">
+      <div className="px-[25px] pt-[25px] pb-[210px] bg-[#F8F9FC]">
         <div className="flex items-center justify-between">
           <h1 className="text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer">
             Data Buku
@@ -175,7 +178,7 @@ const BookList = () => {
                 <td className="border px-4 py-2">
                   <div className="flex justify-between items-center">
                     <FaEdit
-                    onClick={() => handleUpdate(book.id)}
+                      onClick={() => handleUpdate(book.id)}
                       className="text-blue-500 cursor-pointer"
                       style={{ fontSize: "1.4rem" }}
                     />
@@ -193,19 +196,19 @@ const BookList = () => {
         <p className="text-left mt-8">
           Page: {page} of {totalPages}
         </p>
-      </div>
-      <div
-        className="flex justify-center items-center mb-9"
-        aria-label="pagination"
-      >
-        <Stack spacing={2}>
-          <Pagination
-            count={totalPages}
-            page={page}
-            onChange={handleChangePage}
-            color="primary"
-          />
-        </Stack>
+        <div
+          className="flex justify-center items-center mb-9"
+          aria-label="pagination"
+        >
+          <Stack spacing={2}>
+            <Pagination
+              count={totalPages}
+              page={page}
+              onChange={handleChangePage}
+              color="primary"
+            />
+          </Stack>
+        </div>
       </div>
     </>
   );

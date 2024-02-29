@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Api from "../../../../../api";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const AddBook = () => {
   const [title, setTitle] = useState("");
@@ -45,16 +46,36 @@ const AddBook = () => {
       );
 
       if (response.data.success) {
-        toast.success("Buku berhasil ditambahkan", { position: "top-center" });
-        navigate("/dashboard-admin/buku");
+        // Jika sukses, tampilkan swal success
+        Swal.fire({
+          icon: 'success',
+          title: 'Sukses!',
+          text: 'Buku berhasil ditambahkan',
+          showConfirmButton: false,
+          timer: 1500 // Durasi tampilan swal dalam milidetik
+        }).then(() => {
+          navigate("/dashboard-admin/buku");
+        });
       } else {
-        toast.error("Gagal menambahkan buku", { position: "top-center" });
+        // Jika gagal, tampilkan swal error
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal!',
+          text: 'Gagal menambahkan buku',
+          showConfirmButton: false,
+          timer: 1500 // Durasi tampilan swal dalam milidetik
+        });
         setErrorMessage("Gagal menambahkan buku");
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Terjadi kesalahan saat menambahkan buku", {
-        position: "top-center",
+      // Tampilkan swal error jika terjadi kesalahan
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Terjadi kesalahan saat menambahkan buku',
+        showConfirmButton: false,
+        timer: 1500 // Durasi tampilan swal dalam milidetik
       });
       setErrorMessage("Terjadi kesalahan saat menambahkan buku");
     }
