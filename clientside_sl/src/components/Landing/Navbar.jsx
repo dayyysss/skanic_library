@@ -21,12 +21,17 @@ const Navbar = () => {
   return (
     <div className="top-0 fixed w-full z-10 bg-transparent">
       <div>
-        <div className="flex flex-row justify-between p-5 lg:px-32 px-5 bg-gradient-to-r from-backgroundColor to-brightColor shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-filter backdrop-blur-lg">
-          <div className="flex flex-row items-center cursor-pointer gap-2 navbar-container">
-            <img src={LogoSl} alt="Skanic Library Logo" className="logo-container ml-64"/>
+        <div className="flex flex-row p-5 lg:px-32 px-5 bg-gradient-to-r from-backgroundColor to-brightColor shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-filter backdrop-blur-lg">
+          <div className="flex flex-row items-center cursor-pointer gap-0 navbar-container">
+            <img src={LogoSl} alt="Skanic Library Logo" className="logo-container md-5"/>
+              <div className="md:mt-0 mb-3 md-5">
+                <Link to="/" className=" font-semibold text-2xl cursor-pointer text-brightGreen flex mt-5">
+                  SKANIC LIBRARY
+                </Link>
+              </div>
           </div>
 
-          <nav className="hidden md:flex flex-row items-center text-lg font-medium gap-8">
+          <nav className="hidden md:flex flex-row items-center text-lg font-medium gap-8 pl-52">
             <Link
               to="home"
               spy={true}
@@ -82,7 +87,7 @@ const Navbar = () => {
           <div className="hidden lg:flex">
           </div>
 
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center pl-36">
             {menu ? (
               <AiOutlineClose size={25} onClick={handleChange} />
             ) : (
@@ -93,7 +98,7 @@ const Navbar = () => {
         <div
           className={`absolute bg-opacity-50 backdrop-filter backdrop-blur-lg ${
             menu ? "translate-x-0" : "-translate-x-full"
-          } lg:hidden flex flex-col left-0 top-16 font-semibold text-2xl text-center pt-8 pb-4 gap-8 w-full h-fit transition-transform duration-300`}
+          } lg:hidden flex flex-col left-0 top-21 font-semibold text-2xl text-center pt-8 pb-4 gap-8 w-full h-fit transition-transform duration-300`}
         >
           <Link
             to="home"
