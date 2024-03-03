@@ -156,67 +156,67 @@ function PeminjamanBuku({ type }) {
         </main>
         {/* Modal */}
         {showModal && (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-        <div className="bg-black opacity-50 absolute inset-0" onClick={handleToggleModal}></div>
-        <div className="bg-white p-8 rounded-lg shadow-xl z-50 w-1/4"> {/* Memperbesar modal dengan menyesuaikan ukuran lebar */}
-            <h2 className="text-xl font-bold mb-4">Edit Profile</h2>
-            <div className="flex justify-center items-center mb-4">
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-black opacity-50 absolute inset-0" onClick={handleToggleModal}></div>
+            <div className="bg-white p-8 rounded-lg shadow-xl z-50 w-1/4"> {/* Memperbesar modal dengan menyesuaikan ukuran lebar */}
+              <h2 className="text-xl font-bold mb-4">Edit Profile</h2>
+              <div className="flex justify-center items-center mb-4">
                 <div className="relative w-24 h-24">
-                    <img
-                        src={profil}
-                        alt="Profile"
-                        className="rounded-full w-full h-full object-cover"
+                  <img
+                    src={profil}
+                    alt="Profile"
+                    className="rounded-full w-full h-full object-cover"
+                  />
+                  <label
+                    htmlFor="profileImage"
+                    className="absolute bottom-0 right-0 bg-blue-500 rounded-full p-2 cursor-pointer"
+                  >
+                    <input
+                      type="file"
+                      id="profileImage"
+                      className="hidden"
+                      onChange={(e) => {
+                        // handle file upload logic here
+                      }}
                     />
-                    <label
-                        htmlFor="profileImage"
-                        className="absolute bottom-0 right-0 bg-blue-500 rounded-full p-2 cursor-pointer"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                        <input
-                            type="file"
-                            id="profileImage"
-                            className="hidden"
-                            onChange={(e) => {
-                                // handle file upload logic here
-                            }}
-                        />
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 text-white"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                            />
-                        </svg>
-                    </label>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                      />
+                    </svg>
+                  </label>
                 </div>
+              </div>
+              <form className="space-y-4 w-full">
+                <div>
+                  <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+                  <input type="text" id="username" name="username" className="mt-1 block w-full py-2 px-3 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" /> {/* Menambahkan py-2 dan px-3 untuk membuat input lebih besar */}
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                  <input type="email" id="email" name="email" className="mt-1 block w-full py-2 px-3 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" /> {/* Menambahkan py-2 dan px-3 untuk membuat input lebih besar */}
+                </div>
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                  <input type="password" id="password" name="password" className="mt-1 block w-full py-2 px-3 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" /> {/* Menambahkan py-2 dan px-3 untuk membuat input lebih besar */}
+                </div>
+              </form>
+
+
+              <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4 mr-9" onClick={handleToggleModal}>Edit</button>
+              <button className="bg-red-500 text-white px-4 py-2 rounded mt-4" onClick={handleToggleModal}>Close</button>
             </div>
-            <form className="space-y-4 w-full">
-    <div>
-        <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
-        <input type="text" id="username" name="username" className="mt-1 block w-full py-2 px-3 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" /> {/* Menambahkan py-2 dan px-3 untuk membuat input lebih besar */}
-    </div>
-    <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-        <input type="email" id="email" name="email" className="mt-1 block w-full py-2 px-3 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" /> {/* Menambahkan py-2 dan px-3 untuk membuat input lebih besar */}
-    </div>
-    <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-        <input type="password" id="password" name="password" className="mt-1 block w-full py-2 px-3 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" /> {/* Menambahkan py-2 dan px-3 untuk membuat input lebih besar */}
-    </div>
-</form>
-
-
-            <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4 mr-9" onClick={handleToggleModal}>Edit</button>
-            <button className="bg-red-500 text-white px-4 py-2 rounded mt-4" onClick={handleToggleModal}>Close</button>
-        </div>
-    </div>
-)}
+          </div>
+        )}
 
       </div>
     </div>

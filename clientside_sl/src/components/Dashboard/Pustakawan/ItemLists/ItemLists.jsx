@@ -67,11 +67,11 @@ function ItemLists({ type }) {
                 linkto: '/dashboard-pustakawan/pengembalian-buku',
             };
             break;
-        case 'balance':
+        case 'denda':
             data = {
-                title: 'Jumlah Peminjaman',
+                title: 'Jumlah Denda',
                 count: 444,
-                isMoney: false,
+                isMoney: true,
                 icon: (
                     <PaidOutlinedIcon
                         style={{
@@ -81,7 +81,7 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'Lihat semua peminjaman',
+                link: 'Lihat semua denda',
                 linkto: '/',
             };
             break;

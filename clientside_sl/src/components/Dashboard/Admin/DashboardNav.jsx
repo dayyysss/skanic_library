@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FaSearch, FaEnvelope, FaRegBell } from "react-icons/fa";
 import profile from "../../../assets/images/profile.png";
 import { toast } from 'react-hot-toast';
-import 'react-toastify/dist/ReactToastify.css';
 
 const DashboardNav = () => {
     const [open, setOpen] = useState(false);

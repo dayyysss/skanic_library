@@ -17,6 +17,7 @@
 
         .image {
           flex: 4;
+          
 
           .add_new_user {
             color: rgba(128, 128, 128, 0.603);
@@ -25,12 +26,11 @@
           }
 
           img {
-            height: 150px;
-            width: 150px;
+            height: 200px;
+            width: auto;
             background-color: rgba(128, 128, 128, 0.288);
             object-fit: cover;
             margin-top: 20px;
-            border-radius: 50%;
             margin-left: 30%;
           }
         }

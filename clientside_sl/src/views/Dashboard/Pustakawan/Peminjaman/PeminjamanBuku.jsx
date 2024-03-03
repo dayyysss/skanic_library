@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom';
 import DataTable from '../../../../components/Dashboard/Pustakawan/DataTable/DataTable';
 import Navbar from '../../../../components/Dashboard/Pustakawan/Navbar/Navbar';
 import Sidebar from '../../../../components/Dashboard/Pustakawan/Sidebar/Sidebar';
-import TableList from '../../../../components/Dashboard/Pustakawan/TableList/TableList';
+import PeminjamanBukuP from '../../../../components/Dashboard/Pustakawan/Peminjaman/PeminjamanBukuP';
 import './Peminjaman.scss';
 
 function PeminjamanBuku({ type }) {
-    //
     return (
         <div className="list_page">
             <div className="home_sidebar">
@@ -24,7 +23,7 @@ function PeminjamanBuku({ type }) {
                     <div className="btnn">
                     </div>
 
-                    {type === 'user' ? <DataTable /> : <TableList />}
+                    {type === 'user' ? <DataTable /> : <PeminjamanBukuP />}
                 </div>
             </div>
         </div>

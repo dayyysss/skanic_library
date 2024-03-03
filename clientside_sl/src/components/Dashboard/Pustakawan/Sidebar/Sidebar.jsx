@@ -8,9 +8,8 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../../../context/darkContext';
 import './Sidebar.scss';
-import Api from "../../../../api/index";
-import Cookies from "js-cookie";
 import { toast } from 'react-hot-toast';
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 
 function Sidebar() {
     // color state management using react context
@@ -68,6 +67,11 @@ function Sidebar() {
                     <Link to="/dashboard-pustakawan/pengembalian-buku" style={{ textDecoration: 'none' }}>
                         <li>
                             <BookmarkRemoveIcon className="icon" /> Pengembalian Buku
+                        </li>
+                    </Link>
+                    <Link to="/dashboard-pustakawan/denda" style={{ textDecoration: 'none' }}>
+                        <li>
+                            <ProductionQuantityLimitsIcon className="icon" /> Denda
                         </li>
                     </Link>
                     <li onClick={handleLogout}>

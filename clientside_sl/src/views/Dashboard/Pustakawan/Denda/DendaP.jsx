@@ -12,7 +12,7 @@ import blog3 from '../../../../assets/ImagesNew/blog3.jpg';
 import blog4 from '../../../../assets/ImagesNew/blog4.jpg';
 import blog5 from '../../../../assets/ImagesNew/book3.jpg';
 import blog6 from '../../../../assets/ImagesNew/book5.jpg';
-import './Pengembalian.scss';
+import './denda.scss';
 
 const userData = [
     {
@@ -59,8 +59,8 @@ const userData = [
     },
 ];
 
-function PengembalianBuku({ type }) {
-    document.title = "Skanic Library - Pengembalian Buku";
+function DendaP({ type }) {
+    document.title = "Skanic Library - Denda";
     const [data, setData] = useState(userData);
 
     const handleDlt = (id) => {
@@ -134,4 +134,4 @@ function PengembalianBuku({ type }) {
     );
 }
 
-export default PengembalianBuku;
+export default DendaP;

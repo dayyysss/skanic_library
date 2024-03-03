@@ -4,6 +4,8 @@ import NavbarAdmin from '../../../../components/Dashboard/Admin/DashboardNav'
 import DendaCompo from '../../../../components/Dashboard/Admin/DataTransaksi/DendaCompo'
 
 const Denda = () => {
+  document.title = "Dashboard Admin - Denda";
+  
   return (
     <div className="flex overflow-scroll ">
         <div className="basis-[12%] h-[100vh]">

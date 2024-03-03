@@ -4,6 +4,7 @@ import NavbarAdmin from '../../../../components/Dashboard/Admin/DashboardNav'
 import PeminjamanCompo from '../../../../components/Dashboard/Admin/DataTransaksi/PeminjamanCompo'
 
 const PeminjamanBuku = () => {
+  document.title = "Dashboard Admin - Peminjaman";
   return (
     <div className="flex overflow-scroll ">
         <div className="basis-[12%] h-[100vh]">

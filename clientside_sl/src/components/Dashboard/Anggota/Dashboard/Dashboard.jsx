@@ -2,10 +2,11 @@ import React from "react";
 import { FaRegCalendarMinus } from "react-icons/fa";
 
 const Dashboard = () => {
+  document.title = "Skanic Library - Dashboard";
   return (
     <div className='px-[25px] pt-[25px] bg-[#F8F9FC] pb-[40px]'>
       <div className='flex items-center justify-between'>
-        <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer'>Hello Welcome Back!</h1>
+        <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer'>Hallo Selamat Datang!</h1>
       </div>
       <div className='grid grid-cols-4 gap-[30px] mt-[25px] pb-[15px]'>
         <DashboardCard color="#4E73DF" count="5" title="LIHAT PEMINJAMAN" />

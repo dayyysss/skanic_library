@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-scroll";
 import { AiOutlineMenuUnfold, AiOutlineClose } from "react-icons/ai";
-import { useNavigate } from 'react-router-dom';
-import LogoSl from '../../assets/logo/logosl.svg'
-import './logo.css'
+import { useNavigate } from "react-router-dom";
+import LogoSl from "../../assets/logo/logosl.svg";
+import "./logo.css";
+import Button from "../../layouts/Landing/Button";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -17,18 +18,31 @@ const Navbar = () => {
     setMenu(false);
   };
 
+  const handleLogin = () => {
+    navigate("/login");
+  };
+  const handleRegister = () => {
+    navigate("/register");
+  };
 
   return (
     <div className="top-0 fixed w-full z-10 bg-transparent">
       <div>
         <div className="flex flex-row p-5 lg:px-32 px-5 bg-gradient-to-r from-backgroundColor to-brightColor shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-filter backdrop-blur-lg">
           <div className="flex flex-row items-center cursor-pointer gap-0 navbar-container">
-            <img src={LogoSl} alt="Skanic Library Logo" className="logo-container md-5"/>
-              <div className="md:mt-0 mb-3 md-5">
-                <Link to="/" className=" font-semibold text-2xl cursor-pointer text-brightGreen flex mt-5">
-                  SKANIC LIBRARY
-                </Link>
-              </div>
+            <img
+              src={LogoSl}
+              alt="Skanic Library Logo"
+              className="logo-container md-5"
+            />
+            <div className="md:mt-0 mb-3 md-5">
+              <Link
+                to="/"
+                className=" font-semibold text-2xl cursor-pointer text-brightGreen flex mt-5"
+              >
+                SKANIC LIBRARY
+              </Link>
+            </div>
           </div>
 
           <nav className="hidden md:flex flex-row items-center text-lg font-medium gap-8 pl-52">
@@ -84,8 +98,12 @@ const Navbar = () => {
             </Link>
           </nav>
 
-          <div className="hidden lg:flex">
+          <div className="hidden lg:flex items-center justify-end gap-4 ml-48">
+            <Button title="Login" onClick={handleLogin} />
+            <Button title="Register" onClick={handleRegister} />
           </div>
+
+          <div className="hidden lg:flex"></div>
 
           <div className="md:hidden flex items-center pl-36">
             {menu ? (

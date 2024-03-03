@@ -1,183 +1,174 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import man1 from '../../../../assets/ImagesNew/man1.jpg';
-import man2 from '../../../../assets/ImagesNew/man2.jpg';
-import man3 from '../../../../assets/ImagesNew/man3.jpg';
-import man4 from '../../../../assets/ImagesNew/man4.jpg';
-import woman1 from '../../../../assets/ImagesNew/woman1.jpg';
-import woman2 from '../../../../assets/ImagesNew/woman2.jpg';
-import './datatable.scss';
-
-// Replace this data with your own
-const userData = [
-    {
-        id: '630343eb94c2812e4cd7e45d',
-        username: 'Devid434',
-        email: 'devidbom232@gmail.com',
-        image: man1,
-        status: 'active',
-        age: '24',
-    },
-    {
-        id: '6303234eb94c2812e4cd7e45e',
-        username: 'Johnn434',
-        email: 'john03434@gmail.com',
-        image: man2,
-        status: 'passive',
-        age: '29',
-    },
-    {
-        id: 'e40343eb94c2812e4cd7e4233',
-        username: 'Dilvib1233',
-        email: 'dilvibhasanjohn1233@gmail.com',
-        image: man3,
-        status: 'active',
-        age: '20',
-    },
-    {
-        id: '930343eb94c2812e4cd7e45g',
-        username: 'DoeJelia88',
-        email: 'doejelia88@gmail.com',
-        image: woman1,
-        status: 'active',
-        age: '23',
-    },
-    {
-        id: '60443eb94c2812e4cd7e45ii',
-        username: 'Lucas0984',
-        email: 'lucashossel@gmail.com',
-        image: man4,
-        status: 'passive',
-        age: '30',
-    },
-    {
-        id: 'e23343eb94c2812e4cd7e45kk',
-        username: 'Annie765',
-        email: 'anniejhon@gmail.com',
-        image: woman2,
-        status: 'active',
-        age: '23',
-    },
-    {
-        id: '63asd34eb94c2812e4cd7e45e',
-        username: 'Johnn434',
-        email: 'john03434@gmail.com',
-        image: man2,
-        status: 'passive',
-        age: '29',
-    },
-    {
-        id: 'e40gfdeb94c2812e4cd7e4233',
-        username: 'Dilvib1233',
-        email: 'dilvibhasanjohn1233@gmail.com',
-        image: man3,
-        status: 'active',
-        age: '20',
-    },
-    {
-        id: '60443lkjc2812e4cd7e45ii',
-        username: 'Lucas0984',
-        email: 'lucashossel@gmail.com',
-        image: man4,
-        status: 'passive',
-        age: '30',
-    },
-    {
-        id: '930343eb9465512e4cd7e45g',
-        username: 'DoeJelia88',
-        email: 'doejelia88@gmail.com',
-        image: woman1,
-        status: 'active',
-        age: '23',
-    },
-    {
-        id: '60443eb94c8ui2e4cd7e45ii',
-        username: 'Lucas0984',
-        email: 'lucashossel@gmail.com',
-        image: man4,
-        status: 'passive',
-        age: '30',
-    },
-    {
-        id: '6303234eb9987812ed7e45e',
-        username: 'Johnn434',
-        email: 'john03434@gmail.com',
-        image: man2,
-        status: 'passive',
-        age: '29',
-    },
-];
 
 function DataTable() {
-    const [data, setData] = useState(userData);
-
-    const handleDlt = (id) => {
-        setData(data.filter((item) => item.id !== id));
+    const [books, setBooks] = useState([]);
+    const [query, setQuery] = useState("");
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalBooks, setTotalBooks] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+    const [selectedBook, setSelectedBook] = useState(null); // State to hold selected book for editing
+  
+    useEffect(() => {
+      fetchData();
+    }, [page]);
+  
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/book?page=${page}`,
+          {
+            headers: {
+              Authorization: `Bearer ${getAuthToken()}`,
+            },
+          }
+        );
+        if (response.data.success) {
+          const { data, last_page, total } = response.data.data;
+          setBooks(data);
+          setTotalPages(last_page);
+          setTotalBooks(total);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    const getAuthToken = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token not available. Please login.");
+        return null;
+      }
+      return token;
+    };
+  
+    const handleDelete = async (id) => {
+      try {
+        const result = await Swal.fire({
+          title: "Yakin Mau Hapus?",
+          text: "Data akan dihapus dari database",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ya, Hapus saja!",
+        });
+        if (result.isConfirmed) {
+          await axios.delete(`http://127.0.0.1:8000/api/book/${id}`, {
+            headers: {
+              Authorization: `Bearer ${getAuthToken()}`,
+            },
+          });
+          fetchData();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          });
+        }
+      } catch (error) {
+        console.error("Error deleting user:", error);
+      }
+    };
+  
+    const handleUpdate = async (bookId) => {
+      setIsModalOpen(true); // Open modal
+      setSelectedBook(bookId); // Set selected book for editing
+    };
+  
+    const handleChangePage = (event, value) => {
+      setPage(value);
+    };
+  
+    const handleSearch = (e) => {
+      e.preventDefault();
+      setPage(1);
     };
 
     const columns = [
         {
             field: 'id',
             headerName: 'ID',
-            width: 310,
-            renderCell: (param) => (
-                <div className="userr">
-                    <img src={param.row.image} alt="User Image" className="userr_image" />
-                    {param.row.id}
-                </div>
-            ),
+            width: 90,
         },
         {
-            field: 'username',
-            headerName: 'Username',
-            width: 180,
+            field: 'title',
+            headerName: 'Nama Buku',
+            width: 200,
         },
-        { field: 'email', headerName: 'Email', width: 280 },
+        {
+            field: 'synopsis',
+            headerName: 'Sinopsis',
+            width: 200,
+        },
+        {
+            field: 'isbn',
+            headerName: 'ISBN',
+            width: 120,
+        },
+        {
+            field: 'writer',
+            headerName: 'Penulis',
+            width: 150,
+        },
+        {
+            field: 'page_amount',
+            headerName: 'Jumlah Halaman',
+            width: 150,
+        },
+        {
+            field: 'stock_amount',
+            headerName: 'Stok Buku',
+            width: 120,
+        },
+        {
+            field: 'published',
+            headerName: 'Tahun Terbit',
+            width: 140,
+        },
+        {
+            field: 'category',
+            headerName: 'Kategori',
+            width: 150,
+        },
+        {
+            field: 'image',
+            headerName: 'Sampul Buku',
+            width: 150,
+            renderCell: (params) => (
+                <img
+                    src={params.row.image}
+                    alt={params.row.title}
+                    style={{ width: 100, height: 120 }}
+                />
+            ),
+        },
         {
             field: 'status',
             headerName: 'Status',
-            width: 150,
-            renderCell: (param) => (
-                <div className={`status ${param.row.status}`}>{param.row.status}</div>
-            ),
+            width: 120,
         },
-        { field: 'age', headerName: 'Age', width: 120 },
         {
-            field: 'action',
-            headerName: 'Action',
-            width: 170,
+            field: 'aksi',
+            headerName: 'Aksi',
+            width: 160,
             renderCell: (params) => (
-                <div className="actionn">
-                    <Link to={params.row.id}>
-                        <button type="button" className="view_btn">
-                            View
-                        </button>
-                    </Link>
-                    <button
-                        type="button"
-                        className="delete_btn"
-                        onClick={() => handleDlt(params.row.id)}
-                    >
-                        Delete
-                    </button>
+                <div>
+                    <button onClick={() => handleUpdate(params.row.id)}>Edit</button>
+                    <button onClick={() => handleDelete(params.row.id)}>Delete</button>
                 </div>
             ),
         },
     ];
 
     return (
-        <div className="data_table">
-            <DataGrid
-                className="data_grid"
-                rows={data}
-                columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
-                checkboxSelection
-            />
+        <div style={{ height: 400, width: '100%' }}>
+            <DataGrid rows={books} columns={columns} pageSize={5} />
         </div>
+               
     );
 }
 

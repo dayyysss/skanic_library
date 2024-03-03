@@ -1,9 +1,9 @@
 import React from 'react'
 
-const UpdateAnggota = () => {
+const UpdateUser = () => {
   return (
     <div>UpdateAnggota</div>
   )
 }
 
-export default UpdateAnggota
+export default UpdateUser

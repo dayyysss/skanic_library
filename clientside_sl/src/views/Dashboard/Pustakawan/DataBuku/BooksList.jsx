@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import DataTable from "../../../../components/Dashboard/Pustakawan/DataTable/DataTable";
 import Navbar from "../../../../components/Dashboard/Pustakawan/Navbar/Navbar";
 import Sidebar from "../../../../components/Dashboard/Pustakawan/Sidebar/Sidebar";
-import TableList from "../../../../components/Dashboard/Pustakawan/TableList/TableList";
+import TableList from "../../../../components/Dashboard/Pustakawan/DataBuku/DataBuku";
 import "./BooksList.scss";
 
-function Lists({ type }) {
+function BooksList({ type }) {
   //
   return (
     <div className="list_page">
@@ -30,11 +30,11 @@ function Lists({ type }) {
             </Link>
           </div>
 
-          {type === "user" ? <DataTable /> : <TableList />}
+          {type === "book" ? <DataTable /> : <TableList />}
         </div>
       </div>
     </div>
   );
 }
 
-export default Lists;
+export default BooksList;

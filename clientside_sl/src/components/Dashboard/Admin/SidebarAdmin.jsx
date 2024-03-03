@@ -37,18 +37,18 @@ const SidebarAdmin = () => {
           <FaChevronRight color='white' />
         </NavLink> */}
 
-        {/* Pustakawan Link */}
+        {/* Pustakawan Link
         <NavLink to="/dashboard-admin/pustakawan" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
           <div className='flex items-center gap-[10px]'>
             <FaUserTie color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Pustakawan</p>
           </div>
           <FaChevronRight color='white' />
-        </NavLink>
+        </NavLink> */}
 
         {/* Anggota Link */}
-        <NavLink to="/dashboard-admin/anggota" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
+        <NavLink to="/dashboard-admin/manajemen-user/*" className='flex items-center justify-between gap-[10px] py-[15px] cursor-pointer'>
           <div className='flex items-center gap-[10px]'>
-            <FaUser color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>Anggota</p>
+            <FaUser color='white' /> <p className='text-[14px] leading-[20px] font-normal text-white'>User</p>
           </div>
           <FaChevronRight color='white' />
         </NavLink>

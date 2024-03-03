@@ -110,6 +110,7 @@ const userData = [
 ];
 
 function DendaCompo() {
+
     const [data, setData] = useState(userData);
 
     const handleDlt = (id) => {

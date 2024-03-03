@@ -3,9 +3,38 @@ import UserImg from "./../../../assets/avatar.svg";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+// Import axios untuk request HTTP
+import axios from "axios";
 
 function Header() {
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      // Lakukan request untuk logout ke server
+      await axios.post("http://localhost:8000/api/logout", {
+        // Tambahkan body request jika diperlukan
+      });
+      // Hapus token dari local storage
+      localStorage.removeItem("token");
+      // Tampilkan pemberitahuan logout berhasil di tengah layar
+      toast.success("Logout berhasil!", {
+        position: "top-center",
+      });
+      // Tunda pengalihan ke halaman login setelah 2 detik
+      setTimeout(() => {
+        navigate("/");
+      }, 2000); // Ubah angka 2000 menjadi jumlah milidetik yang Anda inginkan
+    } catch (error) {
+      console.error("Error logging out:", error);
+      // Tampilkan pemberitahuan gagal logout jika terjadi kesalahan
+      toast.error("Gagal melakukan logout. Silakan coba lagi.", {
+        position: "top-center",
+      });
+    }
+  };
+
   return (
     <div className="block md:flex items-center justify-between px-8 py-3 bg-neutral-50 mb-2">
       <div className="serachbar border border-slate-200 p-1 rounded w-full md:w-1/3 flex items-center gap-2 mb-2 md:mb-0">
@@ -79,7 +108,9 @@ function Header() {
                   <Menu.Item>
                     {({ active }) => (
                       <button
-                        onClick={() => navigate("/profile")}
+                        onClick={() =>
+                          navigate("/dashboard-anggota/profile")
+                        }
                         className="block mb-1 text-sm hover:bg-slate-100 w-full text-start px-2 py-1"
                       >
                         Your Profile
@@ -99,7 +130,7 @@ function Header() {
                   <Menu.Item>
                     {({ active }) => (
                       <button
-                        onClick={() => navigate("/")}
+                        onClick={handleLogout}
                         className="block text-sm hover:bg-slate-100 w-full text-start px-2 py-1"
                       >
                         Sign Out
@@ -110,41 +141,6 @@ function Header() {
               </Transition>
             </div>
           </Menu>
-
-          {/* <Popover className="relative">
-            {({ open }) => (
-              <>
-                <Popover.Button
-                  className={
-                    open
-                      ? ` text-slate-400 cursor-pointer hover:text-slate-700 flex items-center border-none focus:outline-none  p-1 rounded scale-125 `
-                      : `text-slate-400 cursor-pointer hover:text-slate-700 flex items-center border-none focus:outline-none focus:border-none p-1`
-                  }
-                >
-                  <img
-                    src={UserImg}
-                    alt="User"
-                    className="object-cover rounded-full cursor-pointer w-full"
-                  />
-                </Popover.Button>
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-200"
-                  enterFrom="opacity-0 translate-y-1"
-                  enterTo="opacity-100 translate-y-0"
-                  leave="transition ease-in duration-150"
-                  leaveFrom="opacity-100 translate-y-0"
-                  leaveTo="opacity-0 translate-y-1"
-                >
-                  <Popover.Panel className="absolute right-0 z-10 w-60">
-                    <div className="bg-white rounded p-2 shadow-lg mt-1">
-                      Hey
-                    </div>
-                  </Popover.Panel>
-                </Transition>
-              </>
-            )}
-          </Popover> */}
         </div>
       </div>
     </div>

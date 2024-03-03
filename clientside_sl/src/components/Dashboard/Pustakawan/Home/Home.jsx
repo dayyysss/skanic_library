@@ -6,7 +6,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import './Home.scss';
 
 function Home() {
-    //
+    document.title = "Skanic Library - Pustakawan Dashboard";
     return (
         <div className="home">
             <div className="home_sidebar">
@@ -22,6 +22,7 @@ function Home() {
                     <ItemLists type="data-buku" />
                     <ItemLists type="peminjaman-buku" />
                     <ItemLists type="pengembalian-buku" />
+                    <ItemLists type="denda" />
                 </div>
 
                 <div className="chart_sec">

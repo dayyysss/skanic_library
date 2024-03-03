@@ -8,6 +8,7 @@ import Contact from "../../components/Landing/Kontak";
 import Footer from "../../components/Landing/Footer";
 
 const Landing = () => {
+  document.title = "Skanic Library";
   return (
     <div>
       <Navbar />

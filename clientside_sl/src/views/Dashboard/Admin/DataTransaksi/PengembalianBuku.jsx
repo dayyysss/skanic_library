@@ -4,6 +4,7 @@ import NavbarAdmin from '../../../../components/Dashboard/Admin/DashboardNav'
 import PengembalianCompo from '../../../../components/Dashboard/Admin/DataTransaksi/PengembalianCompo'
 
 const PengembalianBuku = () => {
+  document.title = "Dashboard Admin - Pengembalian";
   return (
     <div className="flex overflow-scroll ">
         <div className="basis-[12%] h-[100vh]">

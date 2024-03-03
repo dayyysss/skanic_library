@@ -13,6 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import book1 from '../../../../assets/ImagesNew/book1.jpg';
 
 const RiwayatA = () => {
+    document.title = "Skanic Library - Riwayat Buku";
       // Replace this data with your own
       const data = [
         {

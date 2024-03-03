@@ -4,6 +4,7 @@ import MainDashboard from '../Dashboard/Main'
 import './style.css'
 
 function HomeAdmin() {
+  document.title = "Dashboard Admin";
   return (
       <div className="flex overflow-scroll ">
         <div className="basis-[12%] h-[100vh]">

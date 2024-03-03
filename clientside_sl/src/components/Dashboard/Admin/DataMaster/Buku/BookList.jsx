@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import UpdateBook from "./UpdateBook"; // Import UpdateBook component
 
 const BookList = () => {
+  document.title = "Dashboard Admin - Data Buku";
   const [books, setBooks] = useState([]);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
@@ -96,7 +97,7 @@ const BookList = () => {
 
   return (
     <>
-      <div className="px-[25px] pt-[25px] pb-[210px] bg-[#F8F9FC]">
+      <div className="px-[25px] pt-[25px] pb-[auto] bg-[#F8F9FC]">
         <div className="flex items-center justify-between">
           <h1 className="text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer">
             Data Buku
@@ -148,7 +149,7 @@ const BookList = () => {
           <tbody>
             {books.map((book, index) => (
               <tr key={index + 1}>
-                <td className="border px-4 py-2">{index + 1}</td>
+                <td className="border px-4 py-2">{(page - 1) * 5 + index + 1}</td>
                 <td className="border px-4 py-2">{book.title}</td>
                 <td className="border px-4 py-2">{book.synopsis}</td>
                 <td className="border px-4 py-2">{book.isbn}</td>

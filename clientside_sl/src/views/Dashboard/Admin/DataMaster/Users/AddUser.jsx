@@ -1,9 +1,9 @@
 import React from 'react'
 import SidebarAdmin from '../../../../../components/Dashboard/Admin/SidebarAdmin'
 import NavbarAdmin from '../../../../../components/Dashboard/Admin/DashboardNav'
-import AnggotaListCompo from '../../../../../components/Dashboard/Admin/DataMaster/Anggota/AnggotaList'
+import AnggotaAddCompo from '../../../../../components/Dashboard/Admin/DataMaster/ManajemenUser/AddUser'
 
-const AnggotaList = () => {
+const AddUser = () => {
   return (
     <div className="flex overflow-scroll ">
         <div className="basis-[12%] h-[100vh]">
@@ -12,10 +12,10 @@ const AnggotaList = () => {
 
         <div className="basis-[88%] border overflow-scroll h-[100vh]">
           <NavbarAdmin />
-          <AnggotaListCompo/>
+          <AnggotaAddCompo/>
           </div>
   </div>
   )
 }
 
-export default AnggotaList
+export default AddUser

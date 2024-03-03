@@ -13,6 +13,7 @@ import TableRow from '@mui/material/TableRow';
 import book1 from '../../../../assets/ImagesNew/book1.jpg';
 
 const DendaA = () => {
+    document.title = "Skanic Library - Denda";
       // Replace this data with your own
       const data = [
         {

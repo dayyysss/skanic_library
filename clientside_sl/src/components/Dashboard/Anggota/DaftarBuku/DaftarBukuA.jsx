@@ -1,6 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { IoIosArrowDropdown } from "react-icons/io";
+import axios from "axios";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -8,26 +9,75 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-import bookImage from "../../../../assets/Books/sololeveling.jpg";
-
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+function DaftarBukuA() {
+  document.title = "Skanic Library - Daftar Buku";
 
-export default function DaftarBukuA() {
-  const [modalOpen, setModalOpen] = useState(false); // State untuk mengatur apakah modal terbuka atau tidak
+  const [modalOpen, setModalOpen] = useState(false);
+  const [books, setBooks] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalBooks, setTotalBooks] = useState(0);
+  const [page, setPage] = useState(1);
+  const [selectedBook, setSelectedBook] = useState(null); // State untuk menyimpan detail buku yang dipilih
 
-  // Fungsi untuk menampilkan modal
+  useEffect(() => {
+    fetchData();
+  }, [page]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/book?page=${page}`,
+        {
+          headers: {
+            Authorization: `Bearer ${getAuthToken()}`,
+          },
+        }
+      );
+      if (response.data.success) {
+        const { data, last_page, total } = response.data.data;
+        setBooks(data);
+        setTotalPages(last_page);
+        setTotalBooks(total);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getAuthToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("Token not available. Please login.");
+      return null;
+    }
+    return token;
+  };
+
   const openModal = () => {
     setModalOpen(true);
   };
 
-  // Fungsi untuk menyembunyikan modal
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const handleBookClick = async (bookId) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/book/${bookId}`, {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      });
+      if (response.data.success) {
+        setSelectedBook(response.data.data); // Set detail buku yang dipilih
+        openModal(); // Buka modal setelah mendapatkan detail buku
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -37,16 +87,13 @@ export default function DaftarBukuA() {
           Daftar Buku
         </h1>
         <div className="flex items-center justify-between">
-          <h1 className="pb-5">Buku Yang Tersedia : 20</h1>
+          <h1 className="pb-5">Buku Yang Tersedia : {totalBooks}</h1>
 
           <Menu as="div" className="relative inline-block text-left">
             <div>
               <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                 Kategori
-                <IoIosArrowDropdown
-                  className="-mr-1 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
+                <IoIosArrowDropdown className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
               </Menu.Button>
             </div>
 
@@ -66,9 +113,7 @@ export default function DaftarBukuA() {
                       <a
                         href="#"
                         className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
+                          active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                           "block px-4 py-2 text-sm"
                         )}
                       >
@@ -81,9 +126,7 @@ export default function DaftarBukuA() {
                       <a
                         href="#"
                         className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
+                          active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                           "block px-4 py-2 text-sm"
                         )}
                       >
@@ -96,9 +139,7 @@ export default function DaftarBukuA() {
                       <a
                         href="#"
                         className={classNames(
-                          active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
+                          active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                           "block px-4 py-2 text-sm"
                         )}
                       >
@@ -112,9 +153,7 @@ export default function DaftarBukuA() {
                         <button
                           type="submit"
                           className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
+                            active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                             "block w-full px-4 py-2 text-left text-sm"
                           )}
                         >
@@ -129,74 +168,80 @@ export default function DaftarBukuA() {
           </Menu>
         </div>
 
-        <div className="flex justify-between mt-5">
-          <Card sx={{ maxWidth: 200 }}>
-            <CardMedia
-              component="img"
-              alt="green iguana"
-              height="140"
-              image={bookImage} // Menggunakan variabel yang menyimpan alamat gambar
-            />
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                className="cursor-pointer"
-                onClick={openModal} // Panggil fungsi openModal saat judul buku diklik
-              >
-                Solo Leveling
-              </Typography>
-              <Typography variant="body2" color="text.secondary" align="center">
-                Pada suatu hari , di dunia ini tidak ada yang bisa membuktikan
-                kesabaran.
-              </Typography>
-            </CardContent>
+        <div className="grid grid-cols-4 gap-5 mt-5">
+          {books.map((book) => (
+            <Card key={book.id} sx={{ maxWidth: 200 }}>
+              <CardMedia
+                component="img"
+                alt="Cover Buku"
+                height="140"
+                image={book.image}
+                onClick={() => handleBookClick(book.id)} // Panggil fungsi handleBookClick saat buku diklik
+                style={{ cursor: "pointer" }} // Ubah kursor saat diarahkan ke gambar buku
+              />
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  className="cursor-pointer"
+                  onClick={() => handleBookClick(book.id)} // Panggil fungsi handleBookClick saat judul buku diklik
+                  style={{ cursor: "pointer" }} // Ubah kursor saat diarahkan ke judul buku
+                >
+                  {book.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" align="center">
+                  {book.synopsis}
+                </Typography>
+              </CardContent>
 
-            <CardActions className="flex justify-center">
-              <Typography style={{ color: "#4CAF50", fontWeight: "bold" }}>
-                Tersedia
-              </Typography>
-            </CardActions>
-          </Card>
-
-          {/* Kartu lainnya */}
+              <CardActions className="flex justify-center">
+                <Typography style={{ color: "#4CAF50", fontWeight: "bold" }}>
+                  Tersedia
+                </Typography>
+              </CardActions>
+            </Card>
+          ))}
         </div>
 
-        <Stack spacing={2}></Stack>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={(event, value) => setPage(value)}
+          className="mt-5"
+        />
       </div>
 
-{/* Konten modal */}
-{modalOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto">
-    <div className="absolute inset-0 bg-black opacity-50"></div>
-    <div className="z-50 bg-white p-8 rounded-lg max-w-lg w-full mx-4 flex">
-      {/* Gambar Sampul Buku */}
-      <div className="w-1/3 mr-4">
-        <img src={bookImage} alt="Sampul Buku" className="w-full h-full object-cover" />
-      </div>
-      {/* Informasi Buku */}
-      <div className="w-2/3">
-        <h2 className="text-xl font-bold mb-4">Detail Buku </h2>
-        <p className="text-left">Judul: Solo Leveling</p>
-        <p className="text-left">Kategori: Novel</p>
-        <p className="text-left">ISBN: 9837-901239-2213</p>
-        <p className="text-left">Penulis: Kevin Irawan</p>
-        <p className="text-left">Penerbit: PT Hilal DKK.</p>
-        <p className="text-left text-green-500">Status: Tersedia</p>
-        <p className="text-left">
-          Sinopsis: Pada suatu hari, di dunia ini tidak ada yang bisa membuktikan kesabaran pada saat itu ia melakukan pembunuhan dikarenakan orang lain mengejeknya dan sibuk mengeluarkan pedang pada saat itu. Jadi ia merelakan semua nya dan pergi begitu saja
-        </p>
-        {/* Tombol untuk menutup modal */}
-        <div className="mt-4">
-          <button className="bg-green-500 text-white px-4 py-2 mr-2" onClick={closeModal}>Pinjam Buku</button>
-          <button className="bg-gray-500 text-white px-4 py-2" onClick={closeModal}>Tutup</button>
+      {/* Konten modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-auto">
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="z-50 bg-white p-8 rounded-lg max-w-lg w-full mx-4 flex">
+            {/* Gambar Sampul Buku */}
+            <div className="w-1/3 mr-4">
+              <img src={selectedBook.image} alt="Sampul Buku" className="w-full h-full object-cover" />
+            </div>
+            {/* Informasi Buku */}
+            <div className="w-2/3">
+              <h2 className="text-xl font-bold mb-4">Detail Buku </h2>
+              <p className="text-left">Judul: {selectedBook.title}</p>
+              <p className="text-left">Kategori: {selectedBook.category}</p>
+              <p className="text-left">ISBN: {selectedBook.isbn}</p>
+              <p className="text-left">Penulis: {selectedBook.writer}</p>
+              <p className="text-left">Diterbitkan: {selectedBook.published}</p>
+              <p className="text-left text-green-500">Status: {selectedBook.status}</p>
+              <p className="text-left">Sinopsis: {selectedBook.synopsis}</p>
+              {/* Tombol untuk menutup modal */}
+              <div className="mt-4">
+                <button className="bg-green-500 text-white px-4 py-2 mr-2" onClick={closeModal}>Pinjam Buku</button>
+                <button className="bg-gray-500 text-white px-4 py-2" onClick={closeModal}>Tutup</button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-)}
-
+      )}
     </>
   );
 }
+
+export default DaftarBukuA;
