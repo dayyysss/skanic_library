@@ -11,13 +11,8 @@ const Register = ({ title }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setConfirmPassword] = useState("");
-  const [roles, setRoles] = useState(3); // Default role ID for "Anggota"
+  const [nisn, setNisn] = useState(""); // Tambahkan state untuk NISN
   const [isLoading, setIsLoading] = useState(false); // Loading state
-
-  const roleOptions = [
-    { label: "Pustakawan", value: 2 },
-    { label: "Anggota", value: 3 }, 
-  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,15 +33,16 @@ const Register = ({ title }) => {
         email,
         password,
         password_confirmation,
-        roles,
-        status: "inactive"
+        nisn,
+        roles: ["anggota"], // Kirim nilai 'roles' sebagai array yang berisi 'anggota'
       });
 
       if (response.data.success) {
         // Menampilkan toast "Register Berhasil!"
-        toast.success("Register Berhasil!", {
-          position: "top-center" // Menempatkan toast di tengah layar
+        toast.success("Daftar Berhasil!", {
+          position: "top-center", // Menempatkan toast di tengah atas layar
         });
+        
         // Menunda pengalihan halaman ke halaman login dengan delay 2 detik
         setTimeout(() => {
           window.location.href = "/login";
@@ -67,12 +63,6 @@ const Register = ({ title }) => {
       setIsLoading(false); // Set isLoading false setelah selesai proses registrasi, baik berhasil atau tidak
     }
   }
-
-  const handleChangeRole = (e) => {
-    const selectedRole = e.target.value;
-    const selectedRoleId = roleOptions.find((role) => role.label === selectedRole).value;
-    setRoles(selectedRoleId);
-  };
 
   return (
     <div className="grid md:grid-cols-2 md:gap- place-items-center w-full min-h-screen">
@@ -164,23 +154,22 @@ const Register = ({ title }) => {
 
             <div className="w-full flex flex-col mt-4">
               <label
-                htmlFor="roles"
+                htmlFor="nisn"
                 className="mb-1 text-sm text-green-400 font-semibold uppercase"
                 style={{ alignSelf: "flex-start", marginLeft: "2px" }}
               >
-                Role
+                NISN
               </label>
-              <select
-                id="roles"
-                name="roles"
+              <input
+                type="text"
+                name="nisn"
+                id="nisn"
+                placeholder="Masukkan NISN"
                 className="w-full border-2 border-green-500 rounded-lg p-2 placeholder:text-sm focus-visible:outline-none focus:border-green-400"
-                value={roleOptions.find((role) => role.value === roles)?.label}
-                onChange={handleChangeRole}
-              >
-                {roleOptions.map((role) => (
-                  <option key={role.value} value={role.label}>{role.label}</option>
-                ))}
-              </select>
+                required
+                value={nisn}
+                onChange={(e) => setNisn(e.target.value)} 
+              />
             </div>
 
             <div className="w-full">

@@ -99,8 +99,8 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden lg:flex items-center justify-end gap-4 ml-48">
-            <Button title="Login" onClick={handleLogin} />
-            <Button title="Register" onClick={handleRegister} />
+            <Button title="Masuk" onClick={handleLogin} />
+            <Button title="Daftar" onClick={handleRegister} />
           </div>
 
           <div className="hidden lg:flex"></div>

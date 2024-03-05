@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegCalendarMinus } from "react-icons/fa";
 
 const Dashboard = () => {
-  document.title = "Skanic Library - Dashboard";
+  const [name, setName] = useState(""); // Mengganti nama state menjadi 'name'
+
+  useEffect(() => {
+    document.title = "Skanic Library - Dashboard";
+    // Mengambil nama dari localStorage jika tersedia
+    const storedName = localStorage.getItem("name"); // Mengganti storedUsername menjadi storedName
+    if (storedName) {
+      setName(storedName);
+    }
+  }, []);
+
   return (
     <div className='px-[25px] pt-[25px] bg-[#F8F9FC] pb-[40px]'>
       <div className='flex items-center justify-between'>
-        <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer'>Hallo Selamat Datang!</h1>
+        <h1 className='text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer'>Hallo Selamat Datang, {name}!</h1> {/* Mengganti username menjadi name */}
       </div>
       <div className='grid grid-cols-4 gap-[30px] mt-[25px] pb-[15px]'>
         <DashboardCard color="#4E73DF" count="5" title="LIHAT PEMINJAMAN" />

@@ -17,9 +17,8 @@ const PengembalianA = () => {
       // Replace this data with your own
       const data = [
         {
-            _id: 23423343,
-            product: 'Programing Book 1',
-            image: book1,
+            _id: 1,
+            product: '11/03/2024',
             customer: 'Devid John',
             date: '3 October, 2022',
             ammount: 45,
@@ -38,13 +37,13 @@ const PengembalianA = () => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell className="table_cell">ISBN</TableCell>
-                        <TableCell className="table_cell">Judul</TableCell>
-                        <TableCell className="table_cell">Tanggal Meminjam</TableCell>
-                        <TableCell className="table_cell">Ammount</TableCell>
-                        <TableCell className="table_cell">Date</TableCell>
-                        <TableCell className="table_cell">Payment Status</TableCell>
+                        <TableCell className="table_cell">Id</TableCell>
+                        <TableCell className="table_cell">Tanggal Pengembalian</TableCell>
                         <TableCell className="table_cell">Status</TableCell>
+                        <TableCell className="table_cell">Fine</TableCell>
+                        <TableCell className="table_cell">Buku</TableCell>
+                        <TableCell className="table_cell">User</TableCell>
+                        <TableCell className="table_cell">Peminjman</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

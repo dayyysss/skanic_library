@@ -1,77 +1,126 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-// mui table
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-
-// import dummy image
-import book1 from '../../../../assets/ImagesNew/book1.jpg';
+// Import MUI components
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 
 const PeminjamanA = () => {
     document.title = "Skanic Library - Peminjaman Buku";
-      // Replace this data with your own
-      const data = [
+
+    const [data, setData] = useState([]); // State untuk menyimpan data peminjaman
+
+    useEffect(() => {
+        fetchData(); // Panggil fetchData saat komponen dimuat
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const token = getAuthToken(); // Ambil token dari localStorage
+            const user_id = getUserId(); // Ambil user_id dari localStorage atau sumber data lainnya
+            if (!token || !user_id) {
+                console.error("Token or user_id not available. Please login.");
+                return;
+            }
+
+            const response = await axios.get(
+                `http://127.0.0.1:8000/api/borrow/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            if (response.data.success) {
+                setData(response.data.data); // Simpan data peminjaman dalam state
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const getAuthToken = () => {
+        const token = localStorage.getItem("token");
+        return token;
+    };
+
+    const getUserId = () => {
+        const user_id = localStorage.getItem("user_id");
+        return user_id;
+    };
+
+    // Dummy data
+    const dummyData = [
         {
-            _id: 23423343,
-            judul: 'Solo Leveling',
-            image: book1,
-            tanggal: '12-02-2024',
-            date: '3 October, 2022',
-            ammount: 45,
-            method: 'Online Payment',
-            status: 'Approved',
+            _id: 1,
+            borrowing_start: '04/03/2024',
+            borrowing_end: '11/03/2024',
+            status: 'Accepted',
         },
-        ];
-  return (
-    <>
-    <div className="px-[25px] pt-[25px] bg-[#F8F9FC] pb-[500px]">
-      <h1 className="text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer">
-        Buku Yang Di Pinjam
-      </h1>
+        {
+            _id: 2,
+            borrowing_start: '04/03/2024',
+            borrowing_end: '11/03/2024',
+            status: 'Pending',
+        },
+    ];
 
-      <TableContainer component={Paper} className="table_list mt-7">
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell className="table_cell">ISBN</TableCell>
-                        <TableCell className="table_cell">Judul</TableCell>
-                        <TableCell className="table_cell">Tanggal Meminjam</TableCell>
-                        <TableCell className="table_cell">Ammount</TableCell>
-                        <TableCell className="table_cell">Date</TableCell>
-                        <TableCell className="table_cell">Payment Status</TableCell>
-                        <TableCell className="table_cell">Status</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((row) => (
-                        <TableRow key={row._id}>
-                            <TableCell component="th" scope="row" className="table_cell">
-                                <div className="product_idd">
-                                    <img src={row.image} alt="product" className="product_img" />
-                                    {row._id}
-                                </div>
-                            </TableCell>
-                            <TableCell className="table_cell">{row.judul}</TableCell>
-                            <TableCell className="table_cell">{row.tanggal}</TableCell>
-                            <TableCell className="table_cell">{row.ammount}</TableCell>
-                            <TableCell className="table_cell">{row.date}</TableCell>
-                            <TableCell className="table_cell">{row.method}</TableCell>
-                            <TableCell className="table_cell">
-                                <span className={`status ${row.status}`}>{row.status}</span>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    </div>
-  </>
-  )
-}
+    return (
+        <>
+            {/* Konten Peminjaman Buku */}
+            <div className="px-[25px] pt-[25px] bg-[#F8F9FC] pb-[500px]">
+                <h1 className="text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer">
+                    Buku Yang Di Pinjam
+                </h1>
 
-export default PeminjamanA
+                <TableContainer component={Paper} className="table_list mt-7">
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell className="table_cell">Id</TableCell>
+                                <TableCell className="table_cell">Peminjaman Awal</TableCell>
+                                <TableCell className="table_cell">
+                                    Peminjaman Berakhir
+                                </TableCell>
+                                <TableCell className="table_cell">Status</TableCell>
+                                <TableCell className="table_cell">Buku</TableCell>
+                                <TableCell className="table_cell">Peminjam</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {dummyData.map((borrow) => (
+                                <TableRow key={borrow._id}>
+                                    <TableCell className="table_cell">
+                                        {borrow._id}
+                                    </TableCell>
+                                    <TableCell className="table_cell">
+                                        {borrow.borrowing_start}
+                                    </TableCell>
+                                    <TableCell className="table_cell">
+                                        {borrow.borrowing_end}
+                                    </TableCell>
+                                    <TableCell className="table_cell">
+                                        {borrow.status}
+                                    </TableCell>
+                                    <TableCell className="table_cell">
+                                        {/* Anda dapat menambahkan detail buku di sini */}
+                                    </TableCell>
+                                    <TableCell className="table_cell">
+                                        {borrow.customer}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        </>
+    );
+};
+
+export default PeminjamanA;

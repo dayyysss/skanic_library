@@ -1,7 +1,8 @@
-import { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { IoIosArrowDropdown } from "react-icons/io";
 import axios from "axios";
+import swal from 'sweetalert2';
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -28,14 +29,11 @@ function DaftarBukuA() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/book?page=${page}`,
-        {
-          headers: {
-            Authorization: `Bearer ${getAuthToken()}`,
-          },
-        }
-      );
+      const response = await axios.get(`http://127.0.0.1:8000/api/book?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      });
       if (response.data.success) {
         const { data, last_page, total } = response.data.data;
         setBooks(data);
@@ -54,6 +52,10 @@ function DaftarBukuA() {
       return null;
     }
     return token;
+  };
+
+  const getUserId = () => {
+    // Implementasi pengambilan user_id yang benar
   };
 
   const openModal = () => {
@@ -80,9 +82,55 @@ function DaftarBukuA() {
     }
   };
 
+  const handlePinjamBuku = async () => {
+    try {
+      // Kirim request ke server untuk meminjam buku
+      await axios.post('http://127.0.0.1:8000/api/borrow/create', {
+        user_id: getUserId(), // Mengirim user_id yang benar
+        book_id: selectedBook.id, // Mengirim book_id yang benar
+      }, {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      });
+
+      // Tampilkan SweetAlert2 sukses
+      await swal.fire({
+        icon: 'success',
+        title: 'Buku Berhasil Dipinjam',
+        text: 'Terima kasih! Buku berhasil dipinjam.',
+      });
+
+      // Tutup modal setelah sukses meminjam buku
+      closeModal();
+    } catch (error) {
+      console.error(error);
+      // Tampilkan pesan kesalahan jika terjadi error
+      if (error.response && error.response.status === 422) {
+        // Validasi gagal, buku tidak tersedia
+        await swal.fire({
+          icon: 'error',
+          title: 'Gagal Meminjam Buku',
+          text: 'Maaf, buku tidak tersedia untuk dipinjam saat ini.',
+        });
+      } else {
+        // Kesalahan lain
+        await swal.fire({
+          icon: 'error',
+          title: 'Gagal Meminjam Buku',
+          text: 'Terjadi kesalahan saat meminjam buku. Silakan coba lagi nanti.',
+        });
+      }
+    }
+  };
+
+  // Memisahkan books menjadi dua bagian, masing-masing menampilkan 4 buku
+  const booksTop = books.slice(0, 4);
+  const booksBottom = books.slice(4);
+
   return (
     <>
-      <div className="px-[25px] pt-[25px] bg-[#F8F9FC] pb-[500px]">
+      <div className="px-[25px] pt-[25px] bg-[#F8F9FC]">
         <h1 className="text-[28px] leading-[34px] font-normal text-[#5a5c69] cursor-pointer">
           Daftar Buku
         </h1>
@@ -168,8 +216,9 @@ function DaftarBukuA() {
           </Menu>
         </div>
 
+        {/* Daftar buku bagian atas */}
         <div className="grid grid-cols-4 gap-5 mt-5">
-          {books.map((book) => (
+          {booksTop.map((book) => (
             <Card key={book.id} sx={{ maxWidth: 200 }}>
               <CardMedia
                 component="img"
@@ -191,24 +240,68 @@ function DaftarBukuA() {
                   {book.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" align="center">
-                  {book.synopsis}
+                  Penulis: {book.writer}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" align="center">
+                  Kategori: {book.category}
                 </Typography>
               </CardContent>
 
               <CardActions className="flex justify-center">
-                <Typography style={{ color: "#4CAF50", fontWeight: "bold" }}>
-                  Tersedia
+                <Typography style={{ color: book.stock_amount === 0 ? "red" : "#4CAF50", fontWeight: "bold" }}>
+                  {book.stock_amount === 0 ? "Tidak Tersedia" : "Tersedia"}
                 </Typography>
               </CardActions>
             </Card>
           ))}
         </div>
 
+        {/* Daftar buku bagian bawah */}
+        <div className="grid grid-cols-4 gap-5 mt-5">
+          {booksBottom.map((book) => (
+            <Card key={book.id} sx={{ maxWidth: 200 }}>
+              <CardMedia
+                component="img"
+                alt="Cover Buku"
+                height="140"
+                image={book.image}
+                onClick={() => handleBookClick(book.id)} // Panggil fungsi handleBookClick saat buku diklik
+                style={{ cursor: "pointer" }} // Ubah kursor saat diarahkan ke gambar buku
+              />
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  className="cursor-pointer"
+                  onClick={() => handleBookClick(book.id)} // Panggil fungsi handleBookClick saat judul buku diklik
+                  style={{ cursor: "pointer" }} // Ubah kursor saat diarahkan ke judul buku
+                >
+                  {book.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" align="center">
+                  Penulis: {book.writer}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" align="center">
+                  Kategori: {book.category}
+                </Typography>
+              </CardContent>
+
+              <CardActions className="flex justify-center">
+                <Typography style={{ color: book.stock_amount === 0 ? "red" : "#4CAF50", fontWeight: "bold" }}>
+                  {book.stock_amount === 0 ? "Tidak Tersedia" : "Tersedia"}
+                </Typography>
+              </CardActions>
+            </Card>
+          ))}
+        </div>
+
+        {/* Pagination */}
         <Pagination
           count={totalPages}
           page={page}
           onChange={(event, value) => setPage(value)}
-          className="mt-5"
+          className="mt-11 flex justify-center items-center"
         />
       </div>
 
@@ -229,11 +322,13 @@ function DaftarBukuA() {
               <p className="text-left">ISBN: {selectedBook.isbn}</p>
               <p className="text-left">Penulis: {selectedBook.writer}</p>
               <p className="text-left">Diterbitkan: {selectedBook.published}</p>
-              <p className="text-left text-green-500">Status: {selectedBook.status}</p>
+              <p className="text-left" style={{ color: selectedBook.stock_amount === 0 ? "red" : "#4CAF50" }}>
+                Status: {selectedBook.stock_amount === 0 ? "Tidak Tersedia" : "Tersedia"}
+              </p>
               <p className="text-left">Sinopsis: {selectedBook.synopsis}</p>
               {/* Tombol untuk menutup modal */}
               <div className="mt-4">
-                <button className="bg-green-500 text-white px-4 py-2 mr-2" onClick={closeModal}>Pinjam Buku</button>
+                <button className="bg-green-500 text-white px-4 py-2 mr-2" onClick={handlePinjamBuku}>Pinjam Buku</button>
                 <button className="bg-gray-500 text-white px-4 py-2" onClick={closeModal}>Tutup</button>
               </div>
             </div>

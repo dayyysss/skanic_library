@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import Api from "../../../../../api";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -17,8 +17,37 @@ const UpdateBook = () => {
   const [status, setStatus] = useState("Tersedia");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const { id } = useParams(); // Menerima id buku dari parameter URL
 
+  useEffect(() => {
+    // Fungsi untuk mengambil detail buku berdasarkan id dari backend
+    const fetchBookDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/book/${id}`
+        );
 
+        if (response.data.success) {
+          const book = response.data.data;
+          // Mengisi state dengan detail buku
+          setTitle(book.title);
+          setSynopsis(book.synopsis);
+          setIsbn(book.isbn);
+          setWriter(book.writer);
+          setPageAmount(book.page_amount);
+          setStockAmount(book.stock_amount);
+          setPublished(book.published);
+          setCategory(book.category);
+          // Status dan gambar belum diisi karena tidak ada di respons dari backend
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        toast.error("Gagal memuat detail buku!", { position: "top-center" });
+      }
+    };
+
+    fetchBookDetails(); // Memanggil fungsi untuk mengambil detail buku ketika komponen dimuat
+  }, [id]); // Memicu useEffect ketika id berubah
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,8 +64,8 @@ const UpdateBook = () => {
     formData.append("image", image);
 
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/book/{id}/update",
+      const response = await axios.put(
+        `http://127.0.0.1:8000/api/book/${id}/update`, // Gunakan id dalam URL permintaan
         formData,
         {
           headers: {

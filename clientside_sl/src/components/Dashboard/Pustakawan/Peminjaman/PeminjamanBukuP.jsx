@@ -28,36 +28,36 @@ function PeminjamanBukuP() {
     useEffect(() => {
         fetchData();
     }, [page]);
+    
+ // Frontend: PeminjamanBukuP.jsx
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get(
-                `http://127.0.0.1:8000/api/borrow?page=${page}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${getAuthToken()}`,
-                    },
-                }
-            );
-            if (response.data.success) {
-                const { data, last_page, total } = response.data.data;
-                setBooks(data);
-                setTotalPages(last_page);
-                setTotalBooks(total);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getAuthToken = () => {
+const fetchData = async () => {
+    try {
         const token = localStorage.getItem("token");
         if (!token) {
             console.error("Token not available. Please login.");
-            return null;
+            return;
         }
-        return token;
-    };
+
+        const response = await axios.get(
+            `http://127.0.0.1:8000/api/borrow/`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        if (response.data.success) {
+            const { data, last_page, total } = response.data.data;
+            setBooks(data);
+            setTotalPages(last_page);
+            setTotalBooks(total);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
 
     const handleDelete = async (id) => {
         try {
@@ -103,50 +103,38 @@ function PeminjamanBukuP() {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell className="table_cell">No</TableCell>
-                            <TableCell className="table_cell">Nama Buku</TableCell>
-                            <TableCell className="table_cell">Sinopsis</TableCell>
-                            <TableCell className="table_cell">ISBN</TableCell>
-                            <TableCell className="table_cell">Penulis</TableCell>
-                            <TableCell className="table_cell">Jumlah Halaman</TableCell>
-                            <TableCell className="table_cell">Stok Buku</TableCell>
-                            <TableCell className="table_cell">Tahun Terbit</TableCell>
-                            <TableCell className="table_cell">Kategori</TableCell>
-                            <TableCell className="table_cell">Sampul Buku</TableCell>
+                            <TableCell className="table_cell">Id</TableCell>
+                            <TableCell className="table_cell">Peminjaman Awal</TableCell>
+                            <TableCell className="table_cell">Peminjaman Akhir</TableCell>
                             <TableCell className="table_cell">Status</TableCell>
-                            <TableCell className="table_cell">Aksi</TableCell>
+                            <TableCell className="table_cell">Book ID</TableCell>
+                            <TableCell className="table_cell">User ID</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {books.map((book, index) => (
+                        {books.map((borrow, index) => (
                             <TableRow key={index}>
                                 <TableCell component="th" scope="row" className="table_cell">{(page - 1) * 5 + index + 1}</TableCell>
-                                <TableCell className="table_cell">{book.title}</TableCell>
-                                <TableCell className="table_cell">{book.synopsis}</TableCell>
-                                <TableCell className="table_cell">{book.isbn}</TableCell>
-                                <TableCell className="table_cell">{book.writer}</TableCell>
-                                <TableCell className="table_cell">{book.page_amount}</TableCell>
-                                <TableCell className="table_cell">{book.stock_amount}</TableCell>
-                                <TableCell className="table_cell">{book.published}</TableCell>
-                                <TableCell className="table_cell">{book.category}</TableCell>
-                                <TableCell className="table_cell">
-                                    <img src={book.image} alt={book.title} className='w-auto mx-auto object-cover' />
-                                </TableCell>
-                                <TableCell className="table_cell">{book.status}</TableCell>
+                                <TableCell className="table_cell">{borrow.id}</TableCell>
+                                <TableCell className="table_cell">{borrow.borrowing_start}</TableCell>
+                                <TableCell className="table_cell">{borrow.borrowing_end}</TableCell>
+                                <TableCell className="table_cell">{borrow.status}</TableCell>
                                 <TableCell className="table_cell">
                                     <div className="flex justify-between items-center">
                                         <FaEdit
-                                            onClick={() => handleUpdate(book.id)}
+                                            onClick={() => handleUpdate(borrow.id)}
                                             className="text-blue-500 cursor-pointer"
                                             style={{ fontSize: "1.4rem" }}
                                         />
                                         <RiDeleteBin5Line
-                                            onClick={() => handleDelete(book.id)}
+                                            onClick={() => handleDelete(borrow.id)}
                                             className="text-red-500 cursor-pointer"
                                             style={{ fontSize: "1.4rem" }}
                                         />
                                     </div>
                                 </TableCell>
+                                <TableCell className="table_cell">{borrow.book_id}</TableCell>
+                                <TableCell className="table_cell">{borrow.user_id}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
